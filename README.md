@@ -1,2 +1,2 @@
 # Git_Shorty
-This is python and othr code being developed
+This is python and other code being developed

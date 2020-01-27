@@ -151,8 +151,8 @@ def new_lap(channel):
             print('New fastest lap!! Lap Time = ' "%.3f" % lap_time, ' seconds') # Prints the fasted lap time when it happens
             fastest_flash() # Calls function that lights the green LED ofr fastest lap indicator
             fastest_lap = lap_time    # Serts a new fasted lap standard to hit
-        if lap_time < 10:   # DOT SURE WHY IT ONLY CALLS & SEGMENT WHEN LAP TIME IS LESS THAN 10 SEC
-            display(lap_time)    # Calls function that sisplays lap time on 7 Segment display
+        #if lap_time < 10:   # DOT SURE WHY IT ONLY CALLS & SEGMENT WHEN LAP TIME IS LESS THAN 10 SEC
+        display(lap_time)    # Calls function that sisplays lap time on 7 Segment display
 
 # Function to reset lap times and counts
 def reset(channel):

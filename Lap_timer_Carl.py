@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 ########################################################################
-# Filename    : Lap_timer_Carl_with_buttons.py
+# Filename    : Lap_timer_Carl.py
 # Description : Reports on the time lapsed between detections of a sensor.
 # For this test code a push button will be the sensor for the lap.
 # The circuit will flash an LED on each lap detection, and green LED to
@@ -11,8 +11,34 @@
 #  display yet
 #
 # Author      : Carl Conliffe based on Scalextric Timer code
-# Modification: 24 Jan 2020
+# Modification: 30 January 2020
 ########################################################################
+
+###### List of variables ###########
+# channel
+# count
+# countDown1, 2, 3, 4, 5
+# fastest_lap
+# green_led
+# i
+# lap_time
+# reed
+# red_led
+# reset
+# time
+# time_1
+# time_2
+####################################
+
+###### List of funcions ############
+# display(time)
+# display_fastest(channel)
+# fastest_flash
+# lap_detect()
+# new_lap(channel)
+# reset(channel)
+# startSequence()
+####################################
 
 
 # Import libraries

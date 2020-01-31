@@ -165,13 +165,13 @@ def newLap(channel):
     global fastestLap   # This is the fasted lap time
     if lapCount < 1:       # This executes on the first lap only to set the start time
         previousTime = time.time()    # This is the start time and the time at the begining of lap #1
-        print("Lap: " + str(count))
+        print("Lap: " + str(lapCount))
         lapCount += 1   # Increments the lap counter
     else:
         currentTime = time.time()          # Grabs the current time
         lapTime = currentTime - previousTime    # Current time minus previous time gets you the current lap time.
         print(' ')
-        print("Lap: " + str(count), " Lap time = %.3f" % lapTime, ' seconds') # Prints the current lap number and lap time
+        print("Lap: " + str(lapCount), " Lap time = %.3f" % lapTime, ' seconds') # Prints the current lap number and lap time
         previousTime = currentTime     # This sets the lap end time to be the start time of the next lap
         lapCount += 1   # Increments the lap counter
         if lapTime < fastestLap:

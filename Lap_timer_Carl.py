@@ -63,12 +63,12 @@ GPIO.setmode(GPIO.BCM)
 
 # pins used for the switches, IR diodes as sensor and LEDs
 reset = 16          # GPIO16 pin 36, lap and fastest lap reset
-lapSensor1= 4       # GPIO4 pin 31, This is for the break IR beam sensor
-lapSensor2= 5       # GPIO5 pin 7, This is for the reflective IR sensor
-lapSensorTest= 6    # GPIO6 pin 29, This is for the push button lap trigger
+lapSensor1= 4       # GPIO4 pin 7, This is for the break IR beam sensor
+lapSensor2= 5       # GPIO5 pin 29, This is for the reflective IR sensor
+lapSensorTest= 6    # GPIO6 pin 31, This is for the push button lap trigger
 getFastestLap = 17  # GPIO17 pin 11, This is a push button to display fastest lap
 redLed = 22         # GPIO22 pin 15, Lap indicator
-greenLed = 17       # GPIO17 pin 36, Fastest lap indicator
+greenLed = 26       # GPIO26 pin 37, Fastest lap indicator
 countDown5 = 25     # GPIO25 pin 22, countdown LEDs on bar LED
 countDown4 = 23     # GPIO23 pin 16, countdown LEDs on bar LED
 countDown3 = 24     # GPIO24 pin 18, countdown LEDs on bar LED
@@ -79,7 +79,7 @@ countDown1 = 13     # GPIO13 pin 33, countdown LEDs on bar LED
 print('The LEDs are being configured.  Red for lap detection and green for fasted lap')
 GPIO.setwarnings(False)
 GPIO.setup(redLed, GPIO.OUT)      # Red LED channel 22
-GPIO.setup(greenLed, GPIO.OUT)    # Green LED channel 17
+GPIO.setup(greenLed, GPIO.OUT)    # Green LED channel 26
 GPIO.setup(countDown5, GPIO.OUT)  # LED bar LED5 channel 25
 GPIO.setup(countDown4, GPIO.OUT)  # LED bar LED4 channel 23
 GPIO.setup(countDown3, GPIO.OUT)  # LED bar LED3 channel 24
@@ -88,9 +88,11 @@ GPIO.setup(countDown1, GPIO.OUT)  # LED bar LED1 channel 13
 
 # Configure inputs using event detection, pull up resistors
 print('Configuring the detection input channels for the GPIO')
-GPIO.setup(reset, GPIO.IN, pull_up_down=GPIO.PUD_UP)   # Reset signal channel GPIO16 pin 36
-GPIO.setup(lapSensorTest, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # lapSensorTest switch channel GPIO6 pin 38
-GPIO.setup(getFastestLap, GPIO.IN, pull_up_down=GPIO.PUD_UP)    #getFastestLap channel GPIO17 pin 40
+GPIO.setup(reset, GPIO.IN, pull_up_down=GPIO.PUD_UP)          # Reset signal channel GPIO16 pin 36
+GPIO.setup(lapSensorTest, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # lapSensorTest switch channel GPIO6 pin 31
+GPIO.setup(lapSensor1, GPIO.IN, pull_up_down=GPIO.PUD_UP)     # lapSensor1 channel GPIO4 pin 7
+GPIO.setup(lapSensor2, GPIO.IN, pull_up_down=GPIO.PUD_UP)     # lapSensor2 channel GPIO5 pin 39
+GPIO.setup(getFastestLap, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # getFastestLap channel GPIO17 pin 11
 
 # Switch off LEDs
 print('Switching all LEDs off')
@@ -210,8 +212,11 @@ def displayFastestLap(channel):
 
 startSequence()   # Calls the start sequence
 GPIO.add_event_detect(16, GPIO.FALLING, callback=reset, bouncetime=200) # This is reset
-GPIO.add_event_detect(6, GPIO.FALLING, callback=newLap, bouncetime=2000) # The is new lap
+GPIO.add_event_detect(6, GPIO.FALLING, callback=newLap, bouncetime=2000) # The is new lap test button
 GPIO.add_event_detect(17, GPIO.FALLING, callback=displayFastestLap, bouncetime=200) # This is display fasted lap
+GPIO.add_event_detect(4, GPIO.FALLING, callback=newLap) # The is new lap Break Beam Detection
+GPIO.add_event_detect(5, GPIO.FALLING, callback=newLap) # The is new lap Reflective Detection
+
 
 try:
 
@@ -223,3 +228,16 @@ finally:
     print('Done!!  The Race is over.')
 #    segment = SevenSegment(address=0x70)
     GPIO.cleanup()
+
+### This might be a better way to do the previous try/Except ###
+# try:
+#    print "Waiting for falling edge on port TBD"
+#    GPIO.wait_for_edge(TBD GPIO port #, GPIO.FALLING)
+#    print('Done!!  The Race is over.')
+#
+#except KeyboardInterrupt:
+#    GPIO.cleanup()       # clean up GPIO on CTRL+C exit
+#    print('Done!!  The Race is over.')
+#print('Done!!  The Race is over.')
+#GPIO.cleanup()           # clean up GPIO on normal exit
+#################################################################

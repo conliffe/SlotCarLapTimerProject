@@ -2,33 +2,37 @@
 ########################################################################
 # Filename    : lapTimer_Carl.py
 # Description : Reports on the time lapsed between detections of a sensor.
-# For this test code a push button will be the sensor for the lap.
-# The circuit will flash an LED on each lap detection, and green LED to
-#  indicate the fastest lap
+# For this test code a push button will be the sensor for the lap in
+# adition to the two types of IR sensor configuration.  The circuit will
+# flash an LED on each lap detection, and green LED to #  indicate the
+# fastest lap.  The schematic name that coresponds to this code is
+# "Lap_Timer_Counter.sch" drans in KiCad
 # 2 Buttons - one to reset timings and one to display fastest lap.
-# The is a countdown christmas tree to start the race.
+# There is a countdown christmas tree to start the race.
 # Does not use adafruit library to display lap times on 7 segment, 4 digit
 #  display yet
 #
 # Author      : Carl Conliffe based on Scalextric Timer code
-# Modification: 30 January 2020
+# Modification: 1 Febuary 2020
 ########################################################################
 
 ###### List of variables ###########
 # fastestLap
 # channel
 # countDown1, 2, 3, 4, 5
+# currentTime
 # getFastestLap
 # greenled
 # i
 # lapCount
+# lapSensor1
+# lapSensor2
+# lapSensorTest
 # lapTime
-# reed
+# previousTime
 # redLed
 # reset
 # time
-# previousTime
-# currentTime
 ####################################
 
 ###### List of funcions ############
@@ -57,34 +61,36 @@ import time
 # Configure the Pi to use the BCM pin names
 GPIO.setmode(GPIO.BCM)
 
-# pins used for the switches, reed sensor and LEDs
-reset = 16        # GPIO16 pin 36
-reed = 20         # GPIO20 pin 38
-getFastestLap = 21  # GPIO21 pin 40
-redLed = 19      # GPIO19 pin 35, Lap indicator
-greenLed = 26    # GPIO21 pin 36, Fastest lap indicator
-countDown5 =  25  # GPIO22 countdown LEDs on bar LED
-countDown4 =  8   # GPIO8 countdown LEDs on bar LED
-countDown3 =  7   # GPIO7 countdown LEDs on bar LED
-countDown2 = 12   # GPIO12 countdown LEDs on bar LED
-countDown1 = 13   # GPIO13 countdown LEDs on bar LED
+# pins used for the switches, IR diodes as sensor and LEDs
+reset = 16          # GPIO16 pin 36, lap and fastest lap reset
+lapSensor1= 4       # GPIO4 pin 31, This is for the break IR beam sensor
+lapSensor2= 5       # GPIO5 pin 7, This is for the reflective IR sensor
+lapSensorTest= 6    # GPIO6 pin 29, This is for the push button lap trigger
+getFastestLap = 17  # GPIO17 pin 11, This is a push button to display fastest lap
+redLed = 22         # GPIO22 pin 15, Lap indicator
+greenLed = 17       # GPIO17 pin 36, Fastest lap indicator
+countDown5 = 25     # GPIO25 pin 22, countdown LEDs on bar LED
+countDown4 = 23     # GPIO23 pin 16, countdown LEDs on bar LED
+countDown3 = 24     # GPIO24 pin 18, countdown LEDs on bar LED
+countDown2 = 12     # GPIO12 pin 32, countdown LEDs on bar LED
+countDown1 = 13     # GPIO13 pin 33, countdown LEDs on bar LED
 
 # configure outputs for LED
 print('The LEDs are being configured.  Red for lap detection and green for fasted lap')
 GPIO.setwarnings(False)
-GPIO.setup(redLed, GPIO.OUT)     #Red LED channel 19
-GPIO.setup(greenLed, GPIO.OUT)   #Green LED channel 26
-GPIO.setup(countDown5, GPIO.OUT)  #LED bar LED5 channel 25
-GPIO.setup(countDown4, GPIO.OUT)  #LED bar LED4 channel 8
-GPIO.setup(countDown3, GPIO.OUT)  #LED bar LED3 channel 7
-GPIO.setup(countDown2, GPIO.OUT)  #LED bar LED2 channel 12
-GPIO.setup(countDown1, GPIO.OUT)  #LED bar LED1 channel 13
+GPIO.setup(redLed, GPIO.OUT)      # Red LED channel 22
+GPIO.setup(greenLed, GPIO.OUT)    # Green LED channel 17
+GPIO.setup(countDown5, GPIO.OUT)  # LED bar LED5 channel 25
+GPIO.setup(countDown4, GPIO.OUT)  # LED bar LED4 channel 23
+GPIO.setup(countDown3, GPIO.OUT)  # LED bar LED3 channel 24
+GPIO.setup(countDown2, GPIO.OUT)  # LED bar LED2 channel 12
+GPIO.setup(countDown1, GPIO.OUT)  # LED bar LED1 channel 13
 
 # Configure inputs using event detection, pull up resistors
 print('Configuring the detection input channels for the GPIO')
 GPIO.setup(reset, GPIO.IN, pull_up_down=GPIO.PUD_UP)   # Reset signal channel GPIO16 pin 36
-GPIO.setup(reed, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Reed switch channel GPIO20 pin 38
-GPIO.setup(getFastestLap, GPIO.IN, pull_up_down=GPIO.PUD_UP)    #getFastestLap channel GPIO21 pin 40
+GPIO.setup(lapSensorTest, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # lapSensorTest switch channel GPIO6 pin 38
+GPIO.setup(getFastestLap, GPIO.IN, pull_up_down=GPIO.PUD_UP)    #getFastestLap channel GPIO17 pin 40
 
 # Switch off LEDs
 print('Switching all LEDs off')
@@ -204,8 +210,8 @@ def displayFastestLap(channel):
 
 startSequence()   # Calls the start sequence
 GPIO.add_event_detect(16, GPIO.FALLING, callback=reset, bouncetime=200) # This is reset
-GPIO.add_event_detect(20, GPIO.FALLING, callback=newLap, bouncetime=2000) # The is new lap
-GPIO.add_event_detect(21, GPIO.FALLING, callback=displayFastestLap, bouncetime=200) # This is display fasted lap
+GPIO.add_event_detect(6, GPIO.FALLING, callback=newLap, bouncetime=2000) # The is new lap
+GPIO.add_event_detect(17, GPIO.FALLING, callback=displayFastestLap, bouncetime=200) # This is display fasted lap
 
 try:
 

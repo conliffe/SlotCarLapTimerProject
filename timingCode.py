@@ -12,7 +12,7 @@ bestLap = 9999
 lapTime = 0
 
 # User input to configure the race
-raceNumber = input("Enter Race Number = : ")    # Enter the race number
+raceNumber = input("Enter Race Information = : ")    # Enter the race information
 laps = int(input("Enter The Number of Laps = : "))  # Typecasting
 print('\nThis is the lap data for Race #', raceNumber)
 
@@ -42,7 +42,7 @@ print('\n')
 print('This is data for Race #', raceNumber)
 print('Start time = ', "%.2f" % startTime)    # Prints the lap # & lap time to 2 decimal places
 print('End time = ', "%.2f" % endTime)        # Prints the lap # & lap time to 2 decimal places
-print(laps, 'lap race is completed')              # Prints the total laps of the race
+print(laps, 'lap race is completed')          # Prints the total laps of the race
 print('Race Time = ', "%.2f" % raceTime)      # Prints the lap # & lap time to 2 decimal places
 print('Best Lap Time = ', "%.2f" % bestLap)   # Prints the lap # & lap time to 2 decimal places
 

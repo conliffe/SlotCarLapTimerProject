@@ -5,7 +5,7 @@ import random
 import csv
 
 lapNumber = 0
-bestLap = 9999
+fastestLap = 9999
 lapTime = 0
 
 ## This section is for definition of functions ##
@@ -15,31 +15,40 @@ def openCSVFile():
     print("Creating .csv file")
     with open('raceData.csv', mode='a') as race_data:
         data_writer = csv.writer(race_data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        data_writer.writerow(['This is data for: ', raceNumber])
-        data_writer.writerow(['Lap #', 'Lap Time (sec)', 'Best Lap(sec)'])
+        data_writer.writerow(['This is data for: ', raceName])
+        data_writer.writerow(['This race will consist of (lap) :', numberOfLaps])
+        data_writer.writerow(['On lane #1 is car UID# :', lane1CarUID])
+        data_writer.writerow(['Lap #', 'Lap Time (sec)', 'Fastest Lap(sec)'])
 
-# Function to write data to .csv file
+# Function to write data to .csv file for one line at a time
 def writeDatatoCSVFile():
     with open('raceData.csv', mode='a') as race_data:
         data_writer = csv.writer(race_data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        bestLapInString = str(bestLap)              # float -> str
-        lapNumberInString = str(lapNumber)          # float -> str
-        lapTimeInString = str(lapTime)              # float -> str
-        data_writer.writerow([lapNumberInString, lapTimeInString, bestLapInString])
+        data_writer.writerow([lapNumber, lapTime, fastestLap])
+
+# Funtion for user to input race data
+def inputRaceData():
+    global numberOfLaps
+    global raceName
+    global lane1CarUID
+    raceName = input("Enter Race Name: ")    # Enter the race information
+    numberOfLaps = int(input("Enter The Number of Laps: "))  # Typecasting
+    lane1CarUID = input("Enter UID for car on lane #1: ")    # Enter the race information
+    print(raceName, 'will be a ', numberOfLaps, ' lap race.')
+    
 ## End of section for definition of functions ##  
 
-# Stat on main program
+# Start on main program
 # User input to configure the race
-raceNumber = input("Enter Race Information = : ")    # Enter the race information
-laps = int(input("Enter The Number of Laps = : "))  # Typecasting
-print('\nThis is the lap data for ', raceNumber)
+inputRaceData()
 openCSVFile()
 
 # Initialize starting times
 startTime = time.time()
+localStartTime = time.localtime()
 previousTime = startTime
                             
-for n in range(laps):
+for n in range(numberOfLaps):
     lapNumber += 1
     sleepTime = random.randint(1,4)  # Genertes random number for simulated lap time delay
     time.sleep(sleepTime)
@@ -47,39 +56,40 @@ for n in range(laps):
     lapTime = currentTime - previousTime
     print('Lap #', lapNumber, 'Time = ', "%.2f" % lapTime)   # Prints the lap # & lap time to 2 decimal places
     writeDatatoCSVFile()
-    if lapTime < bestLap:
-        bestLap = lapTime
+    if lapTime < fastestLap:
+        fastestLap = lapTime
     previousTime = currentTime
-    if lapNumber == (laps-1):
+    if lapNumber == (numberOfLaps - 1):
         print('White Flag, Last Lap')
-    if lapNumber == (laps):
+    if lapNumber == (numberOfLaps):
         print('Checkered Flag, Race Over!!!')
             
 raceTime = time.time() - startTime
 endTime = time.time()
+localEndTime = time.localtime()
 
 # Output race stats to screen
-print('\n')
-print('This is data for Race #', raceNumber)
-print('Start time = ', "%.2f" % startTime)    # Prints the lap # & lap time to 2 decimal places
-print('End time = ', "%.2f" % endTime)        # Prints the lap # & lap time to 2 decimal places
-print(laps, 'lap race is completed')          # Prints the total laps of the race
-print('Race Time = ', "%.2f" % raceTime)      # Prints the lap # & lap time to 2 decimal places
-print('Best Lap Time = ', "%.2f" % bestLap)   # Prints the lap # & lap time to 2 decimal places
+print('This is data for: ', raceName) 
+formattedStartTime = time.strftime("%d %B %Y at %H:%M:%S %Z ", localStartTime)  
+print("Race start: ", formattedStartTime)  # Prints the time and date the race started
+formattedEndTime = time.strftime("%d %B %Y at %H:%M:%S %Z ", localEndTime)  
+print("Race finish: ", formattedEndTime)  # Prints the time and date the race ended
+print(numberOfLaps, 'lap race is completed')          # Prints the total laps of the race
+print('R ace Time = ', "%.2f" % raceTime, " seconds")      # Prints the lap # & lap time to 2 decimal places
+print('Fastest Lap Time = ', "%.2f" % fastestLap, " seconds")   # Prints the lap # & lap time to 2 decimal places
 
 # Write data to .txt file
-startTimeInString = str(startTime)          # float -> str
-endTimeInString = str(endTime)              # float -> str
+startTimeInString = str(formattedStartTime)          # float -> str
+endTimeInString = str(formattedEndTime)              # float -> str
 raceTimeInString = str(raceTime)            # float -> str
-bestLapInString = str(bestLap)              # float -> str
+fastestLapInString = str(fastestLap)              # float -> str
 f = open('raceData.txt', 'a')               # Write and append to the file
-f.write('This is data for Race #' + raceNumber + '\n')
+f.write('This is data for: ' + raceName + '\n')
 f.write('Start Time = ' + startTimeInString + '\n')
 f.write('End Time = ' + endTimeInString + '\n')
-f.write('Race Time = ' + raceTimeInString + '\n')
-f.write('Best Lap = ' + bestLapInString + '\n')
+f.write('Race Time = ' + raceTimeInString + ' seconds\n')
+f.write('Fastest Lap = ' + fastestLapInString + ' seconds\n')
 f.write('\n')
-f = close('raceData.txt, 'a' )
-    
+f = f.close()    
     
     

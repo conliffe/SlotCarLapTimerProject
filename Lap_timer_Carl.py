@@ -17,25 +17,26 @@
 ########################################################################
 
 ###### List of variables ###########
-# fastestLap
 # channel
 # countDown1, 2, 3, 4, 5
-# currentTime
-# fastestLapInString
+# currentTime               # Stors the current Time
+# driverName                # Name of the driver
+# fastestLap                # This is the fastest lap of the race
+# fastestLapInString        # fasted lap time as a string and not float
 # getFastestLap
 # greenled
 # i
-# lapNumber
 # lapSensor1
 # lapSensor2
 # lapSensorTest
-# lapTime
-# lapTimeInString
-# previousTime
-# raceFinishTime
-# raceFinishTimeFormatted
-# raceStartTime
-# raceStartTimeFormatted
+# lapTime                   # Stores the lap time for the current lap
+# lapTimeInString           # Stores the lap time as a string and not float
+# numberOfLaps              # current lap number of the race
+# previousTime              # This is the current time at the start of the lap
+# raceFinishTime            # This is the time in epoch at race finish
+# raceFinishTimeFormatted   # This is the human readable time at race finish
+# raceStartTime             # This is the time in epoch at race start
+# raceStartTimeFormatted    # This is the human readable time at race start
 # redLed
 # reset
 # startRace
@@ -45,18 +46,23 @@
 ###### List of funcions ############
 # display(time)
 # displayFastestLap(channel)
+# endingRoutine()
 # fastestLapLEDflash
+# inputRaceData()
 # lapDetect()
 # logDataToCSV()
+# logFinalDataToCSV()
 # newLap(channel)
+# openCSVFile()
 # reset(channel)
 # startSequence()
 ####################################
 
 
 # Import libraries
-import RPi.GPIO as GPIO
-import time
+import RPi.GPIO as GPIO    # Has setups for using GPIO with Raspberry Pi board
+import time     # Has all the time funtions I need
+import sys      # Has function to exit program
 #from Adafruit_7Segment import SevenSegment
 
 # Set i2c address for display, and display zeros
@@ -110,9 +116,10 @@ GPIO.output(redLed, False)
 GPIO.output(greenLed, False)
 
 # Define new variables for lap counting and remembering fastest lap time
-lapNumber = 0
+numberOfLaps = 0
 fastestLap = 9999
 
+## This section of code is where all the functions exist ##
 # Funtion to run the start sequence countdown
 def startSequence():
     GPIO.output(countDown5, False)  #Turn off LED
@@ -181,49 +188,52 @@ def openCSVFile():
     print("Creating .csv file")
     with open('raceData.csv', mode='a') as race_data:
         data_writer = csv.writer(race_data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        data_writer.writerow(['This is data for: ', raceNumber])
+        data_writer.writerow(['This is data for: ', raceName])
+        data_writer.writerow(['This race will consist of (lap) :', numberOfLaps])
+        data_writer.writerow(['On lane #1 is car UID# :', lane1CarUID])
         data_writer.writerow(['Lap #', 'Lap Time (sec)', 'Fastest Lap(sec)'])
 
-# Function to write data to .csv file
+# Function to write data to .csv file for one line at a time
 def writeDatatoCSVFile():
     with open('raceData.csv', mode='a') as race_data:
         data_writer = csv.writer(race_data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        fastestLapInString = str(fastestLap)        # float -> str
-        lapNumberInString = str(lapNumber)          # float -> str
-        lapTimeInString = str(lapTime)              # float -> str
-        data_writer.writerow([lapNumberInString, lapTimeInString, bestLapInString])
+        data_writer.writerow([lapNumber, lapTime, fastestLap])
 
 # Function to determine what actions to take on new lap detection
 def newLap(channel):
     lapDetect()
-    global lapNumber       # This variable is the lap count.  May want to make this user inputable.
+    global numberOfLaps    # This variable is the lap count.  May want to make this user inputable.
     global previousTime    # This is the previous time or time at start of lap
     global currentTime     # This is the current time or time at end of lap
     global lapTime         # This is the current lap time
     global fastestLap      # This is the fasted lap time
-    if lapNumber < 1:       # This executes on the first lap only to set the start time
+    if numberOfLaps < 1:   # This executes on the first lap only to set the start time
         previousTime = time.time()    # This is the start time and the time at the begining of lap #1
-        print("Lap: " + str(lapNumber))
-        lapNumber += 1   # Increments the lap counter
+        print("Lap: " + str(numberOfLaps))
+        numberOfLaps += 1   # Increments the lap counter
+        writeDatatoCSVFile()
     else:
         currentTime = time.time()          # Grabs the current time
         lapTime = currentTime - previousTime    # Current time minus previous time gets you the current lap time.
         print(' ')
-        print("Lap: " + str(lapNumber), " Lap time = %.3f" % lapTime, ' seconds') # Prints the current lap number and lap time
+        print("Lap: " + str(numberOfLaps), " Lap time = %.3f" % lapTime, ' seconds') # Prints the current lap number and lap time
         previousTime = currentTime     # This sets the lap end time to be the start time of the next lap
-        lapNumber += 1   # Increments the lap counter
+        numberOfLaps += 1   # Increments the lap counter
         if lapTime < fastestLap:
             print('New fastest lap!! Lap Time = ' "%.3f" % lapTime, ' seconds') # Prints the fasted lap time when it happens
             fastestLapLEDflash() # Calls function that lights the green LED ofr fastest lap indicator
-            fastestLap = lapTime    # Serts a new fasted lap standard to hit
+            fastestLap = lapTime    # Sets a new fasted lap standard to hit
+        writeDatatoCSVFile()
         #if lapTime < 10:   # DOT SURE WHY IT ONLY CALLS & SEGMENT WHEN LAP TIME IS LESS THAN 10 SEC
-        display(lapTime)    # Calls function that sisplays lap time on 7 Segment display
+        display(lapTime)    # Calls function that displays lap time on 7 Segment display
+        if numberOfLaps == lapNumber:
+            endingRoutine()
 
 # Function to reset lap times and counts
 def reset(channel):
     global count
     global fastestLap
-    lapNumber = 0
+    numberOfLaps = 0
     fastestLap = 99999
     print('Lap times reset to zero')
 #    segment.writeDigit(0, 0)
@@ -240,6 +250,43 @@ def displayFastestLap(channel):
 #    segment.writeDigit(3, int(str(fastestLap)[2]))
 #    segment.writeDigit(4, int(str(fastestLap)[3]))
 
+# Funtion for user to input race data
+def inputRaceData():
+    global numberOfLaps
+    global raceName
+    global lane1CarUID
+    global driverName
+    raceName = input("Enter Race Name: ")    # Enter the race information
+    numberOfLaps = int(input("Enter The Number of Laps: "))  # Typecasting
+    lane1CarUID = input("Enter UID for car on lane #1: ")    # Enter the race information
+    driverName = input("Enter the name of the driver on lane #1: ")    # Enter the race information
+    print(raceName, 'will be a ', numberOfLaps, ' lap race.')
+
+# This is the funtion that cleans house the the program endingRoutine
+def endingRoutine():
+    print('Done!!  The Race is over.')
+    raceFinishTime = time.localtime()     # This returns the local finish time of the race
+    raceFinishTimeFormatted = time.strftime("%a, %d %b %Y %H:%M:%S %Z ", raceFinishTime)
+    print("\nOfficial Race Finish Time = ", raceFinishTimeFormatted)
+#    segment = SevenSegment(address=0x70)
+    print('The winner is ')
+    logFinalDataToCSV()
+    GPIO.cleanup()
+    sys.exit('program exiting')
+
+def logFinalDataToCSV():
+    with open('raceData.csv', mode='a') as race_data:
+        data_writer = csv.writer(race_data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        data_writer.writerow([lapNumber, lapTime, fastestLap])
+        data_writer.writerow(['The race started at: ', raceStartTimeFormatted])
+        data_writer.writerow(['The race ended at: ', raceFinishTimeFormatted])
+        data_writer.writerow(['Laps complted by winner: ', lapNumber])
+        raceTimeDuration = raceStartTime - raceFinishTime
+        data_writer.writerow(['The race duration was (sec): ', raceTimeDuration])
+        data_writer.writerow(['The fastest race lap was (sec): ', fastestLap])
+        data_writer.writerow(['The race winner is: '])
+
+# calls function for user to input race data
 startSequence()   # Calls the start sequence
 GPIO.add_event_detect(16, GPIO.FALLING, callback=reset, bouncetime=200)  # This is reset
 GPIO.add_event_detect(6, GPIO.FALLING, callback=newLap, bouncetime=2000) # The is new lap test button

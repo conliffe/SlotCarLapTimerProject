@@ -67,13 +67,14 @@ print("\nCurrent time in [time.struct_time (tm_year, tm_mon, tm_mday, tm_hour, t
 # Suspend execution of the calling thread for the given number of seconds. 
 # The argument may be a floating point number to indicate a more precise 
 # sleep time. 
-print("\nTaking a 5.5 sec delay between the next line executed")
-time.sleep(5.5)
+print("\nTaking a 1.5 sec delay between the next line executed")
+time.sleep(1.5)
 
 # Convert a tuple or struct_time representing a time as returned by gmtime() 
 # or localtime() to a string as specified by the format argument. 
 # time.strftime(format[, t])
-time2 = time.strftime("%a, %d %b %Y %H:%M:%S %Z ", time1)
+#time2 = time.strftime("%a, %d %b %Y %H:%M:%S %Z ", time1)
+time2 = time.strftime("%H:%M:%S %Z ", time1)
 print("\nCurrent time in [Day, date month year HH:MM:SS] format: ", time2)
 print("The user can format how the output appears. \n")
 

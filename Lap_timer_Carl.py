@@ -1,19 +1,24 @@
 #!/usr/bin/env python3
 ########################################################################
 # Filename    : lapTimer_Carl.py
-# Description : Reports on the time lapsed between detections of a sensor.
-# For this test code a push button will be the sensor for the lap in
-# adition to the two types of IR sensor configuration.  The circuit will
-# flash an LED on each lap detection, and green LED to #  indicate the
-# fastest lap.  The schematic name that coresponds to this code is
-# "Lap_Timer_Counter.sch" drans in KiCad
-# 2 Buttons - one to reset timings and one to display fastest lap.
-# There is a countdown christmas tree to start the race.
-# Does not use adafruit library to display lap times on 7 segment, 4 digit
-#  display yet
+# Description : This code is for a Raspberry Pi circuit that will detect slot
+# car laps and lime them.  It used IR sensors.  The program will calculate lap
+# time, fasted lap and time a race duration for the number of laps inputed by
+# the user as the race durtion.  There is also a countdown to start shown with
+# 5 LEDs.  Data fro the race is reported to a .csv file while also being
+# displayed to the sreemn.  Ther are also 4 push buttons that 1) rested lap
+# time and counter, 2) force a lap to be counted.  This is a debug feature and
+# not used for a real race.  3) display fasted lap on request during the race
+# and 4) lets user trigger start of race.  This is prompted from the screen
+# display.
+# The circuit will flash an LED on each lap detection, and green LED to
+# indicate the fastest lap.  The schematic name that coresponds to this code is
+# "Lap_Timer_Counter.sch" drans in KiCad.
+# Program does not currently use adafruit library to display lap times on 7
+# segment, 4 digit display yet
 #
 # Author      : Carl Conliffe based on Scalextric Timer code
-# Modification: 2 Febuary 2020
+# Modification: 5 Febuary 2020
 ########################################################################
 
 ###### List of variables ###########
@@ -75,7 +80,7 @@ import sys      # Has function to exit program
 # Configure the Pi to use the BCM pin names
 GPIO.setmode(GPIO.BCM)
 
-# pins used for the switches, IR diodes as sensor and LEDs
+# Pin assignments used for the switches, IR diodes as sensor and LEDs
 reset = 16          # GPIO16 pin 36, lap and fastest lap reset
 lapSensor1= 4       # GPIO4 pin 7, This is for the break IR beam sensor
 lapSensor2= 5       # GPIO5 pin 29, This is for the reflective IR sensor
@@ -132,16 +137,16 @@ def startSequence():
     GPIO.output(countDown5, True)  #Turn on LED
     print('Five!')
     time.sleep(1)
-    GPIO.output(countDown4, True)  #Turn off LED
+    GPIO.output(countDown4, True)  #Turn on LED
     print('Four!')
     time.sleep(1)
-    GPIO.output(countDown3, True)  #Turn off LED
+    GPIO.output(countDown3, True)  #Turn on LED
     print('Three!')
     time.sleep(1)
-    GPIO.output(countDown2, True)  #Turn off LED
+    GPIO.output(countDown2, True)  #Turn on LED
     print('Two!')
     time.sleep(1)
-    GPIO.output(countDown1, True)  #Turn off LED
+    GPIO.output(countDown1, True)  #Turn on LED
     print('One!')
     time.sleep(1)
     GPIO.output(countDown5, False)  #Turn off LED
@@ -154,23 +159,18 @@ def startSequence():
     raceStartTimeFormatted = time.strftime("%a, %d %b %Y %H:%M:%S %Z ", raceStartTime)
     print("\nOfficial Race Start Time = ", raceStartTimeFormatted)
 
-# Function to flash red LED once
+# Function to flash LED once lap is detected
 def lapDetect():
-#    print('Lap was detected. Flashing a Red LED')
-#    print('Red LED ON')
-    GPIO.output(redLed, True)
+    GPIO.output(redLed, True)    # Turns red LED on
     time.sleep(0.1)
-#    print('Red LED off')
-    GPIO.output(redLed, False)
+    GPIO.output(redLed, False)    # Turns red LED off
 
 # Function to repeatedly flash green LED when a fastest lap occurs
 def fastestLapLEDflash():
     for i in range(0,5):
-#        print('Green LED ON')
-        GPIO.output(greenLed, True)
+        GPIO.output(greenLed, True)    # Turns green LED on
         time.sleep(0.1)
-#        print('Green LED OFF')
-        GPIO.output(greenLed, False)
+        GPIO.output(greenLed, False)    # Turns green LED off
         time.sleep(0.1)
     print('You just completed your fastest lap!')
 
@@ -224,7 +224,7 @@ def newLap(channel):
             fastestLapLEDflash() # Calls function that lights the green LED ofr fastest lap indicator
             fastestLap = lapTime    # Sets a new fasted lap standard to hit
         writeDatatoCSVFile()
-        #if lapTime < 10:   # DOT SURE WHY IT ONLY CALLS & SEGMENT WHEN LAP TIME IS LESS THAN 10 SEC
+        #if lapTime < 10:   # NOT SURE WHY IT ONLY CALLS & SEGMENT WHEN LAP TIME IS LESS THAN 10 SEC
         display(lapTime)    # Calls function that displays lap time on 7 Segment display
         if numberOfLaps == lapNumber:
             endingRoutine()
@@ -274,6 +274,7 @@ def endingRoutine():
     GPIO.cleanup()
     sys.exit('program exiting')
 
+# This is the funtion logs the final bit of race data to the .csv file
 def logFinalDataToCSV():
     with open('raceData.csv', mode='a') as race_data:
         data_writer = csv.writer(race_data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -285,6 +286,9 @@ def logFinalDataToCSV():
         data_writer.writerow(['The race duration was (sec): ', raceTimeDuration])
         data_writer.writerow(['The fastest race lap was (sec): ', fastestLap])
         data_writer.writerow(['The race winner is: '])
+
+## End of section for definition of functions ##
+
 
 # calls function for user to input race data
 startSequence()   # Calls the start sequence

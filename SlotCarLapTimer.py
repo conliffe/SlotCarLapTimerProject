@@ -162,7 +162,7 @@ def startSequence():
     GPIO.output(countDown1, False)  #Turn off LED
     print('GO!!!!')
     raceStartTime = time.localtime()    # This returns the local start time of the race
-    raceStartTimeFormatted = time.strftime("%a, %d %b %Y %H:%M:%S %Z ", raceStartTime)
+    raceStartTimeFormatted = time.strftime("%a, %d %b %Y %H:%M:%S %Z", raceStartTime)
     raceStartTime = time.time()         # This returns the start time of the race as epoch
     print('\nOfficial Race Start Time = ', raceStartTimeFormatted)
 
@@ -277,7 +277,7 @@ def endingRoutine():
     global raceFinishTime
     print('Done!!  The Race is over.')
     raceFinishTime = time.localtime()    # This returns the local finish time of the race
-    raceFinishTimeFormatted = time.strftime("%a, %d %b %Y %H:%M:%S %Z ", raceFinishTime)
+    raceFinishTimeFormatted = time.strftime("%a, %d %b %Y %H:%M:%S %Z", raceFinishTime)
     print("\nOfficial Race Finish Time: ", raceFinishTimeFormatted)
     raceFinishTime = time.time()    # This returns the finish time of the race as epoch
 #    segment = SevenSegment(address=0x70)

@@ -2,97 +2,67 @@
 ########################################################################
 # Filename    : SlotCarlapTimer.py
 # Description : This code is for a Raspberry Pi circuit that will detect slot
-# car laps and time them.  It used IR sensors.  The program will calculate lap
+# car laps and lime them.  It used IR sensors.  The program will calculate lap
 # time, fasted lap and time a race duration for the number of laps inputed by
-# the user as the race duration.  There is also a countdown to start shown with
-# 5 LEDs.  Data from the race is reported to a .csv file while also being
-# displayed to the screen.  There are also 4 push buttons that; 1) reset lap
+# the user as the race durtion.  There is also a countdown to start shown with
+# 5 LEDs.  Data fro the race is reported to a .csv file while also being
+# displayed to the sreemn.  Ther are also 4 push buttons that 1) rested lap
 # time and counter, 2) force a lap to be counted.  This is a debug feature and
 # not used for a real race.  3) display fasted lap on request during the race
 # and 4) lets user trigger start of race.  This is prompted from the screen
 # display.
-# The circuit will flash an LED on each lap detection, and a blinking colored LED to
+# The circuit will flash an LED on each lap detection, and green LED to
 # indicate the fastest lap.  The schematic name that coresponds to this code is
-# "Lap_Timer_Counter.sch" drawn in KiCad.
-#
+# "Lap_Timer_Counter.sch" drans in KiCad.
 # Program does not currently use adafruit library to display lap times on 7
 # segment, 4 digit display yet
 #
-# Author: Carl Miguel Conliffe based on Scalextric Timer code
-# Modification: 8 February 2020
+# Author      : Carl Conliffe based on Scalextric Timer code
+# Modification: 5 Febuary 2020
 ########################################################################
 
 ###### List of variables ###########
 # channel
-# countDown1, 2, 3, 4, 5    # Each represents an LED on the countdown tree
-# currentTime               # Current Time when read
-# driverName1, 2                # Name of the driver inputed by user
+# countDown1, 2, 3, 4, 5
+# currentTime               # Stors the current Time
+# driverName                # Name of the driver
 # fastestLap                # This is the fastest lap of the race
-# fastestLapInString        # Fastest lap time as a string and not a float
-# getFastestLap             # Push button input to display fastest lap
-# greenLed                  # Output to blink for fastest lap
-# i                         # Used for loop indexes
-# lane1CarUID               # Unique ID number for car
+# fastestLapInString        # fasted lap time as a string and not float
+# getFastestLap
+# greenled
+# i
 # lapNumber                 # This is the current lap number the racer is on.
-# lapSensor1                # IR LED receiver inout for detecting car on lane #1 completed lap
-# lapSensor2                # IR LED receiver inout for detecting car on lane #2 completed lap
-# lapSensorTest             # Push button input to force lap as a test only
-# lapTime                   # Lap time for the current lap
-# lapTimeInString           # Lap time as a string and not float for current lap
-# numberOfLaps              # Total number of laps in the race.  User inputted value
-# previousTime              # Current time at the start of a lap
-# raceFinishTime            # Time in epoch at race finish
-# raceFinishTimeFormatted   # Human readable time at race finish
-# raceName                  # Name of race inputed by user
-# raceStartTime             # Time in epoch at race start
-# raceStartTimeFormatted    # Human readable time at race start
-# raceTimeDuration          # Length of race in seconds
-# redLed                    # LED output for lap completion indicator, GPIO driven (colored for lane)
-# reset                     # Input to GPIO to reset lap counter & timer
-# startRace                 # Input to GPIO to start race when prompted
+# lapSensor1
+# lapSensor2
+# lapSensorTest
+# lapTime                   # Stores the lap time for the current lap
+# lapTimeInString           # Stores the lap time as a string and not float
+# numberOfLaps              # Number of laps in the race.  User inputted value
+# previousTime              # This is the current time at the start of the lap
+# raceFinishTime            # This is the time in epoch at race finish
+# raceFinishTimeFormatted   # This is the human readable time at race finish
+# raceStartTime             # This is the time in epoch at race start
+# raceStartTimeFormatted    # This is the human readable time at race start
+# redLed
+# reset
+# startRace
+# time
 ####################################
 
 ###### List of funcions ############
-# display(time)  ---   Displays current lap time to 7 segment (not used yet)
-# displayFastestLap(channel)   ---   Displays fastest lap 7 segment (not used yet)
-# endingRoutine()   ---   Cleans up everything once race is over & displays finish time
-# fastestLapLEDflash   ---   FLashes LED when fastest lap is acheived
-# inputRaceData()   ---   Prompts user to enter race data
-# lapDetect()   ---   Blinks LED once when lap is detected
-# writeDataToCSV()   ---  Writes a single line of data to the lap data file
-# writeToTXTFile()   ---  Writes race data to .txt file when race is complete
-# logFinalDataToCSV()   ---   Write race end stats to .csv and closes it.
-# newLap(channel)   ---   Determines what to do when a new lap is detected (increment lap counter, compute lap time, fastest lap...)
-# openCSVFile()   ---   Opens .csv file and creates the column headings
-# reset(channel)   ---    Resets race laps and fastest, lap counter
-# startSequence()   ---   Sets the start time & countdown LED display
-# WriteToScreen()   ---   Writes data to the screen once the race is over
+# display(time)
+# displayFastestLap(channel)
+# endingRoutine()
+# fastestLapLEDflash
+# inputRaceData()
+# lapDetect()
+# logDataToCSV()
+# logFinalDataToCSV()
+# newLap(channel)
+# openCSVFile()
+# reset(channel)
+# startSequence()
 ####################################
-
-#=================================  GPIO ASSIGNMENTS ===========================================
-# GPIO Name/Num   | Pin | Variable/Signal | I/O || GPIO Name/Num   | Pin | Variable/Signal | I/O
-# ----------------|-----|-----------------|-----||-----------------|-----------------------------
-# 3.3V            |  1  | N/A             | Out || 5V              |  2  | N/A             | Out
-# I2C SDA  GPIO2  |  3  |                 |     || 5V              |  4  | N/A             | Out
-# I2C SDA  GPIO3  |  5  |                 |     || GND             |  6  | N/A             | Out
-#          GPIO4  |  7  | lapSensor1      | In  || UART TXD GPIO14 |  8  |                 |
-# GND             |  9  | N/A             | Out || UART RXD GPIO15 |  10 |                 |
-#          GPIO17 |  11 | getFastestLap   | In  || PCM CLK  GPIO18 |  12 |                 |
-#          GPIO27 |  13 |                 |     || GND             |  14 | N/A             | Out
-#          GPIO22 |  15 | redLED          | Out ||          GPIO23 |  16 | countDown4      | Out
-# 3.3V            |  17 | N/A             | Out ||          GPIO24 |  18 | countDown3      | Out
-# SPI MOSI GPIO10 |  19 |                 |     || GND             |  20 | N/A             | Out
-# SPI MISO GPIO9  |  21 |                 |     ||          GPIO25 |  22 | countDown5      | Out
-# SPI SCLK GPIO11 |  23 |                 |     || SPI CEO  GPIO15 |  24 |                 |
-# GND             |  25 | N/A             | Out || SPI CE1  GPIO7  |  26 |                 |
-# ID SD           |  27 | startRace       | In  || GID SC          |  28 |                 |
-#          GPIO5  |  29 | lapSensor2      | In  || GND             |  30 | N/A             | Out
-#          GPIO6  |  31 | lapSensorTest   | In  ||          GPIO12 |  32 | countDown2      | Out
-#          GPIO13 |  33 | countDown1      | Out || GND             |  34 | N/A             | Out
-# PCM FS   GPIO19 |  35 |                 |     ||          GPIO16 |  36 | reset           | In
-#          GPIO26 |  37 | greenLED        | Out || PCM DIN  GPIO20 |  38 |                 |
-# GND             |  39 | N/A             | Out || PCM DOUT GPIO21 |  40 |                 |
-#================================================================================================
 
 
 # Import libraries
@@ -114,9 +84,9 @@ GPIO.setmode(GPIO.BCM)
 
 # Pin assignments used for the switches, IR diodes as sensor and LEDs
 reset = 16          # GPIO16 pin 36, lap and fastest lap reset
-lapSensor1 = 4       # GPIO4 pin 7, This is for the break IR beam sensor
-lapSensor2 = 5       # GPIO5 pin 29, This is for the reflective IR sensor
-lapSensorTest = 6    # GPIO6 pin 31, This is for the push button lap trigger
+lapSensor1= 4       # GPIO4 pin 7, This is for the break IR beam sensor
+lapSensor2= 5       # GPIO5 pin 29, This is for the reflective IR sensor
+lapSensorTest= 6    # GPIO6 pin 31, This is for the push button lap trigger
 getFastestLap = 17  # GPIO17 pin 11, This is a push button to display fastest lap
 startRace = 27      # GPIO27 pin 13, This is a push button to start the race
 redLed = 22         # GPIO22 pin 15, Lap indicator
@@ -127,9 +97,9 @@ countDown3 = 24     # GPIO24 pin 18, countdown LEDs on bar LED
 countDown2 = 12     # GPIO12 pin 32, countdown LEDs on bar LED
 countDown1 = 13     # GPIO13 pin 33, countdown LEDs on bar LED
 
-# configure GPIO outputs for LED
-# for debug #print('The LEDs are being configured.  Red for lap detection and green for fasted lap.')
-GPIO.setwarnings(False)           # Turn GPIO warnings off
+# configure outputs for LED
+print('The LEDs are being configured.  Red for lap detection and green for fasted lap.')
+GPIO.setwarnings(False)
 GPIO.setup(redLed, GPIO.OUT)      # Red LED channel 22
 GPIO.setup(greenLed, GPIO.OUT)    # Green LED channel 26
 GPIO.setup(countDown5, GPIO.OUT)  # LED bar LED5 channel 25
@@ -139,11 +109,11 @@ GPIO.setup(countDown2, GPIO.OUT)  # LED bar LED2 channel 12
 GPIO.setup(countDown1, GPIO.OUT)  # LED bar LED1 channel 13
 
 # Configure inputs using event detection, pull up resistors
-# for debug #print('Configuring the detection input channels for the GPIO')
+print('Configuring the detection input channels for the GPIO')
 GPIO.setup(reset, GPIO.IN, pull_up_down=GPIO.PUD_UP)          # Reset signal channel GPIO16 pin 36
 GPIO.setup(lapSensorTest, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # lapSensorTest switch channel GPIO6 pin 31
 GPIO.setup(lapSensor1, GPIO.IN, pull_up_down=GPIO.PUD_UP)     # lapSensor1 channel GPIO4 pin 7
-GPIO.setup(lapSensor2, GPIO.IN, pull_up_down=GPIO.PUD_UP)     # lapSensor2 channel GPIO5 pin 29
+GPIO.setup(lapSensor2, GPIO.IN, pull_up_down=GPIO.PUD_UP)     # lapSensor2 channel GPIO5 pin 39
 GPIO.setup(getFastestLap, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # getFastestLap channel GPIO17 pin 11
 GPIO.setup(startRace, GPIO.IN, pull_up_down=GPIO.PUD_UP)      # startRace channel GPIO27 pin 13
 
@@ -152,76 +122,47 @@ print('Switching all LEDs off')
 GPIO.output(redLed, False)
 GPIO.output(greenLed, False)
 
-# Define variables for lap counting and remembering fastest lap time
+# Define new variables for lap counting and remembering fastest lap time
 numberOfLaps = 0
 fastestLap = 9999
 lapNumber = 0
 lapTime = 0
 
-# --- This section of code is where all the functions are defined  --- #
-
-# Function to write data to screen
-def WriteToScreen():
-    global raceStartTimeFormatted
-    global raceFinishTimeFormatted
-    global raceTimeDuration
-    print('This is data for: ', raceName)
-    print("Race start: ", raceStartTimeFormatted)  # Prints the time and date the race started
-    print("Race finish: ", raceFinishTimeFormatted)  # Prints the time and date the race ended
-    print(numberOfLaps, 'lap race is completed')  # Prints the total laps of the race
-    print('R ace Time = ', "%.3f" % raceTimeDuration, " seconds")  # Prints the lap # & lap time to 3 decimal places
-    print('Fastest Lap Time = ', "%.3f" % fastestLap, " seconds")  # Prints the lap # & lap time to 3 decimal places
-    #Add race winners once I write that code
-
-# Function to Write data to .txt file
-def writeToTXTFile():
-    startTimeInString = str(raceStartTimeFormatted)    # float -> str
-    endTimeInString = str(raceFinishTimeFormatted)     # float -> str
-    raceTimeInString = str(raceTimeDuration)           # float -> str
-    fastestLapInString = str(fastestLap)               # float -> str
-    f = open('raceData.txt', 'a')                      # Write and append to the file
-    f.write('This is data for: ' + raceName + '\n')
-    f.write('Start Time = ' + startTimeInString + '\n')
-    f.write('End Time = ' + endTimeInString + '\n')
-    f.write('Race Time = ' + raceTimeInString + ' seconds\n')
-    f.write('Fastest Lap = ' + fastestLapInString + ' seconds\n')
-    f.write('\n')
-    f = f.close()
-
-# Function to run the start sequence countdown
+## This section of code is where all the functions exist ##
+# Funtion to run the start sequence countdown
 def startSequence():
     global raceStartTimeFormatted
     global raceStartTime
-    GPIO.output(countDown5, False)  # Turn off LED 5
-    GPIO.output(countDown4, False)  # Turn off LED 4
-    GPIO.output(countDown3, False)  # Turn off LED 3
-    GPIO.output(countDown2, False)  # Turn off LED 2
-    GPIO.output(countDown1, False)  # Turn off LED 1
+    GPIO.output(countDown5, False)  #Turn off LED
+    GPIO.output(countDown4, False)  #Turn off LED
+    GPIO.output(countDown3, False)  #Turn off LED
+    GPIO.output(countDown2, False)  #Turn off LED
+    GPIO.output(countDown1, False)  #Turn off LED
     print('Gentlemen start your engines')
     time.sleep(1)
-    GPIO.output(countDown5, True)  # Turn on LED 5
+    GPIO.output(countDown5, True)  #Turn on LED
     print('Five!')
     time.sleep(1)
-    GPIO.output(countDown4, True)  # Turn on LED 4
+    GPIO.output(countDown4, True)  #Turn on LED
     print('Four!')
     time.sleep(1)
-    GPIO.output(countDown3, True)  # Turn on LED 3
+    GPIO.output(countDown3, True)  #Turn on LED
     print('Three!')
     time.sleep(1)
-    GPIO.output(countDown2, True)  # Turn on LED 2
+    GPIO.output(countDown2, True)  #Turn on LED
     print('Two!')
     time.sleep(1)
-    GPIO.output(countDown1, True)   #Turn on LED 1
+    GPIO.output(countDown1, True)  #Turn on LED
     print('One!')
     time.sleep(1)
-    GPIO.output(countDown5, False)  #Turn off LED 5
-    GPIO.output(countDown4, False)  #Turn off LED 4
-    GPIO.output(countDown3, False)  #Turn off LED 3
-    GPIO.output(countDown2, False)  #Turn off LED 2
-    GPIO.output(countDown1, False)  #Turn off LED 1
+    GPIO.output(countDown5, False)  #Turn off LED
+    GPIO.output(countDown4, False)  #Turn off LED
+    GPIO.output(countDown3, False)  #Turn off LED
+    GPIO.output(countDown2, False)  #Turn off LED
+    GPIO.output(countDown1, False)  #Turn off LED
     print('GO!!!!')
-    raceStartTime = time.localtime()    # This returns the local start time of the race as a formatted value
-    raceStartTimeFormatted = time.strftime("%a, %d %b %Y %H:%M:%S %Z", raceStartTime)  # Day, Date, Month, Year, hour:min:sec Time zone)
+    raceStartTime = time.localtime()    # This returns the local start time of the race
+    raceStartTimeFormatted = time.strftime("%a, %d %b %Y %H:%M:%S %Z", raceStartTime)
     raceStartTime = time.time()         # This returns the start time of the race as epoch
     print('\nOfficial Race Start Time = ', raceStartTimeFormatted)
 
@@ -240,7 +181,7 @@ def fastestLapLEDflash():
         time.sleep(0.1)
     print('You just completed your fastest lap!')
 
-# Function to write lap time to the 7 Segment display [not used yet]
+# Function to write lap time to the 7 Segment display
 def display(time):
     print('This is value the for lap time that gets displayed in the 7 segment display')
     print('Your lap time = ', "%.3f" %time, ' seconds')
@@ -249,7 +190,7 @@ def display(time):
 #    segment.writeDigit(3, int(str(time)[2]))
 #    segment.writeDigit(4, int(str(time)[3]))
 
-# Function to open, create and configure .csv file column headings
+# Function to open, create and configure .csv file
 def openCSVFile():
     print("Creating .csv file")
     with open('raceData.csv', mode='a') as race_data:
@@ -257,8 +198,7 @@ def openCSVFile():
         data_writer.writerow(['This is data for: ', raceName])
         data_writer.writerow(['This race will consist of (laps):', numberOfLaps])
         data_writer.writerow(['On lane #1 is car UID#:', lane1CarUID])
-        #data_writer.writerow(['On lane #2 is car UID#:', lane2CarUID])
-        data_writer.writerow(['Lap #', 'Lap Time (sec)', 'Fastest Lap(sec)'])   # Column headings
+        data_writer.writerow(['Lap #', 'Lap Time (sec)', 'Fastest Lap(sec)'])
 
 # Function to write data to .csv file for one line at a time
 def writeDatatoCSVFile():
@@ -268,42 +208,43 @@ def writeDatatoCSVFile():
 
 # Function to determine what actions to take on new lap detection
 def newLap(channel):
-    lapDetect()            # Calls function to blink LED
-    global numberOfLaps    # This variable is the total lap count.
+    lapDetect()
+    global numberOfLaps    # This variable is the lap count.  May want to make this user inputable.
     global lapNumber       # This is the current lap the racer is on
-    global previousTime    # This is the time at start of lap
-    global currentTime     # This is the time at end of lap
-    global lapTime         # This is the current lap time calculated
+    global previousTime    # This is the previous time or time at start of lap
+    global currentTime     # This is the current time or time at end of lap
+    global lapTime         # This is the current lap time
     global fastestLap      # This is the fasted lap time
     if lapNumber == 0:   # First lap detection is crossing start/finish/lap sensor
         previousTime = time.time()    # This is the start time and the time at the begining of lap #1
         print('Crossed Start/Finish.  You are racing!')
         lapNumber += 1   # Increments the lap counter
+#        writeDatatoCSVFile()
     else:
-        currentTime = time.time()             # Grabs the current time in epoch
-        lapTime = currentTime - previousTime  # Current time minus previous time gets you the current lap time.
+        currentTime = time.time()          # Grabs the current time
+        lapTime = currentTime - previousTime    # Current time minus previous time gets you the current lap time.
         print(' ')
         print('Lap #', lapNumber, " Lap time = %.3f" % lapTime, ' seconds') # Prints the current lap number and lap time
         previousTime = currentTime     # This sets the lap end time to be the start time of the next lap
         if lapTime < fastestLap:
-            print('New fastest lap!! Lap Time = ' "%.3f" % lapTime, ' seconds')  # Prints the fasted lap time.
-            fastestLapLEDflash() # Calls function that lights the green LED for fastest lap indicator
-            fastestLap = lapTime    # Sets a new fasted lap standard.
+            print('New fastest lap!! Lap Time = ' "%.3f" % lapTime, ' seconds') # Prints the fasted lap time when it happens
+            fastestLapLEDflash() # Calls function that lights the green LED ofr fastest lap indicator
+            fastestLap = lapTime    # Sets a new fasted lap standard to hit
         writeDatatoCSVFile()
         #if lapTime < 10:   # NOT SURE WHY IT ONLY CALLS & SEGMENT WHEN LAP TIME IS LESS THAN 10 SEC
         display(lapTime)    # Calls function that displays lap time on 7 Segment display
-        if numberOfLaps == lapNumber:  # Checks if the race should be over
+        if numberOfLaps == lapNumber:
             endingRoutine()
         else:
             lapNumber += 1   # Increments the lap counter
 
 # Function to reset lap times and counts
 def reset(channel):
-    # global count
+    global count
     global fastestLap
     lapNumber = 0
-    fastestLap = 9999
-    # Debug #print('Lap times reset to zero')
+    fastestLap = 99999
+    print('Lap times reset to zero')
 #    segment.writeDigit(0, 0)
 #    segment.writeDigit(1, 0)
 #    segment.writeDigit(3, 0)
@@ -318,7 +259,7 @@ def displayFastestLap(channel):
 #    segment.writeDigit(3, int(str(fastestLap)[2]))
 #    segment.writeDigit(4, int(str(fastestLap)[3]))
 
-# Function for user to input race data
+# Funtion for user to input race data
 def inputRaceData():
     global numberOfLaps
     global raceName
@@ -330,7 +271,7 @@ def inputRaceData():
     driverName = input("Enter the name of the driver on lane #1: ")    # Enter the race information
     print(raceName, 'will be a ', numberOfLaps, ' lap race.')
 
-# Function that cleans house then ends the program
+# This is the funtion that cleans house the the program endingRoutine
 def endingRoutine():
     global raceFinishTimeFormatted
     global raceFinishTime
@@ -342,46 +283,46 @@ def endingRoutine():
 #    segment = SevenSegment(address=0x70)
     print('The winner is... TBD once code gets added ')
     logFinalDataToCSV()
-    WriteToScreen()
     GPIO.cleanup()
     sys.exit('program exiting')
 
-# Function logs the final race data to the .csv file
+# This is the funtion logs the final bit of race data to the .csv file
 def logFinalDataToCSV():
     with open('raceData.csv', mode='a') as race_data:
         data_writer = csv.writer(race_data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+#        data_writer.writerow([lapNumber, lapTime, fastestLap])
         data_writer.writerow(['The race started at: ', raceStartTimeFormatted])
         data_writer.writerow(['The race ended at: ', raceFinishTimeFormatted])
         data_writer.writerow(['Laps completed by winner: ', lapNumber])
-        # Add laps of the loser as well
         raceTimeDuration = raceFinishTime - raceStartTime
         data_writer.writerow(['The race duration was (sec): ', raceTimeDuration])
         data_writer.writerow(['The fastest race lap was (sec): ', fastestLap])
-        data_writer.writerow(['The race winner is: '])   # TBD figure who won
+        data_writer.writerow(['The race winner is: '])
 
 
-inputRaceData()  # calls function for user to input race data
-openCSVFile()    # calls function to create .csv file
+inputRaceData()    # calls function for user to input race data
+openCSVFile()
 print ('Waiting for marshall to push "Start" button.')
 GPIO.wait_for_edge(27, GPIO.FALLING, bouncetime=2000)   # This is the start button being pressed
 print('The Race has started.')
 startSequence()   # Calls the start sequence
-GPIO.add_event_detect(16, GPIO.FALLING, callback=reset, bouncetime=200)  # This is reset interrupt
-GPIO.add_event_detect(6, GPIO.FALLING, callback=newLap, bouncetime=2000)  # The is new lap test button interrupt
-GPIO.add_event_detect(17, GPIO.FALLING, callback=displayFastestLap, bouncetime=200)  # This is display fasted lap interrupt
-GPIO.add_event_detect(4, GPIO.FALLING, callback=newLap, bouncetime=200)  # The is new lap Break Beam Detection interrupt
-GPIO.add_event_detect(5, GPIO.FALLING, callback=newLap, bouncetime=200)  # The is new lap Reflective Detection interrupt
+GPIO.add_event_detect(16, GPIO.FALLING, callback=reset, bouncetime=200)  # This is reset
+GPIO.add_event_detect(6, GPIO.FALLING, callback=newLap, bouncetime=2000) # The is new lap test button
+GPIO.add_event_detect(17, GPIO.FALLING, callback=displayFastestLap, bouncetime=200) # This is display fasted lap
+GPIO.add_event_detect(4, GPIO.FALLING, callback=newLap, bouncetime=200)  # The is new lap Break Beam Detection
+GPIO.add_event_detect(5, GPIO.FALLING, callback=newLap, bouncetime=200)  # The is new lap Reflective Detection
 
 
 try:
+    #print ('Waiting racer to push "Start" button')
+    #GPIO.wait_for_edge(27, GPIO.FALLING, bouncetime=2000)   # This is the start buttong being pressed
+    #print('The Race has started.')
     while True:
         time.sleep(0.01)
         pass    # Does nothing.  Kind of like a no op
 
 finally:
     print('Done!!  The Race is over.')
-    logFinalDataToCSV()
-    writeToTXTFile()
 #    raceFinishTime = time.localtime()     # This returns the local finish time of the race
 #    raceFinishTimeFormatted = time.strftime("%a, %d %b %Y %H:%M:%S %Z ", raceFinishTime)
 #    print("\nOfficial Race Finish Time = ", raceFinishTimeFormatted)

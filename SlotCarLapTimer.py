@@ -21,6 +21,32 @@
 # Modification: 8 February 2020
 ########################################################################
 
+# ================================ GPIO ASSIGNMENTS ===============================================
+# GPIO Name/Num   | Pin | Variable/Signal | I/O || GPIO Name/Num   | Pin | Variable/Signal | I/O ||
+# ----------------|-----|-----------------|-----||-----------------|-----|-----------------|-----||
+# 3.3V            |  1  | N/A             | Out || 5V              |  2  | N/A             | Out ||
+# I2C SDA  GPIO2  |  3  |                 |     || 5V              |  4  | N/A             | Out ||
+# I2C SCL  GPIO3  |  5  |                 |     || GND             |  6  | N/A             | Out ||
+#          GPIO4  |  7  | lapSensor1      | In  || UART TXD GPIO14 |  8  |                 |     ||
+# GND             |  9  | N/A             | Out || UART RXD GPIO15 | 10  |                 |     ||
+#          GPIO17 | 11  | getFastestLap   | In  || PCM CLK  GPIO18 | 12  |                 |     ||
+#          GPIO27 | 13  | startRace       | In  || GND             | 14  | N/A             | Out ||
+#          GPIO22 | 15  | redLed          | Out ||          GPIO23 | 16  | countDown4      | Out ||
+# 3.3V            | 17  | N/A             | Out ||          GPIO24 | 18  | countDown3      | Out ||
+# SPI MOSI GPIO10 | 19  |                 |     || GND             | 20  | N/A             | Out ||
+# SPI MISO GPIO9  | 21  |                 |     ||          GPIO25 | 22  | countDown5      | Out ||
+# SPI SCLK GPIO11 | 23  |                 |     || SPI CE0  GPIO8  | 24  |                 |     ||
+# GND             | 25  | N/A             | Out || SPI CE1  GPIO7  | 26  |                 |     ||
+# ID SD           | 27  | N/A             |     || ID SC           | 28  | N/A             |     ||
+#          GPIO5  | 29  | lapSensor2      | In  || GND             | 30  | N/A             | Out ||
+#          GPIO6  | 31  | lapSensorTest   | In  ||          GPIO12 | 32  | countDown2      | Out ||
+#          GPIO13 | 33  | countDown1      | Out || GND             | 34  | N/A             | Out ||
+# PCM FS   GPIO19 | 35  |                 |     ||          GPIO16 | 36  | reset           | In  ||
+#          GPIO26 | 37  | greenLed        | Out || PCM DIN  GPIO20 | 38  |                 |     ||
+# GND             | 39  | N/A             | Out || PCM DOUT GPIO21 | 40  |                 |     ||
+# =================================================================================================
+
+
 ###### List of variables ###########
 # channel
 # countDown1, 2, 3, 4, 5

@@ -4,9 +4,9 @@
 # Description : This code is for a Raspberry Pi circuit that will detect slot
 # car laps and lime them.  It used IR sensors.  The program will calculate lap
 # time, fasted lap and time a race duration for the number of laps inputed by
-# the user as the race durtion.  There is also a countdown to start shown with
+# the user as the race duration.  There is also a countdown to start shown with
 # 5 LEDs.  Data fro the race is reported to a .csv file while also being
-# displayed to the sreemn.  Ther are also 4 push buttons that 1) rested lap
+# displayed to the screne.  There are also 4 push buttons that 1) rested lap
 # time and counter, 2) force a lap to be counted.  This is a debug feature and
 # not used for a real race.  3) display fasted lap on request during the race
 # and 4) lets user trigger start of race.  This is prompted from the screen
@@ -18,13 +18,13 @@
 # segment, 4 digit display yet
 #
 # Author      : Carl Conliffe based on Scalextric Timer code
-# Modification: 5 Febuary 2020
+# Modification: 8 February 2020
 ########################################################################
 
 ###### List of variables ###########
 # channel
 # countDown1, 2, 3, 4, 5
-# currentTime               # Stors the current Time
+# currentTime               # Stores the current Time
 # driverName                # Name of the driver
 # fastestLap                # This is the fastest lap of the race
 # fastestLapInString        # fasted lap time as a string and not float

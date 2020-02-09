@@ -90,6 +90,6 @@ f.write('End Time = ' + endTimeInString + '\n')
 f.write('Race Time = ' + raceTimeInString + ' seconds\n')
 f.write('Fastest Lap = ' + fastestLapInString + ' seconds\n')
 f.write('\n')
-f = f.close()    
+f = f.close()
     
     

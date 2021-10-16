@@ -77,6 +77,7 @@ print("Race finish: ", formattedEndTime)  # Prints the time and date the race en
 print(numberOfLaps, 'lap race is completed')          # Prints the total laps of the race
 print('Race Time = ', "%.2f" % raceTime, " seconds")      # Prints the lap # & lap time to 2 decimal places
 print('Fastest Lap Time = ', "%.2f" % fastestLap, " seconds")   # Prints the lap # & lap time to 2 decimal places
+print('Writing race data to a text file named "RaceData.txt"')
 
 # Write data to .txt file
 startTimeInString = str(formattedStartTime)          # float -> str

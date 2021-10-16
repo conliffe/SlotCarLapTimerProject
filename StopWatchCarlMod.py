@@ -2,9 +2,11 @@
 #############################################################################
 # Filename    : StopWatch.py
 # Description : Control 4_Digit_7_Segment_Display with 74HC595
+# This code needs Raspberry Pi hardware in order to run.
 # Author      : www.freenove.com
 # modification: 2019/12/27
 ########################################################################
+
 import RPi.GPIO as GPIO
 import time
 import threading
@@ -26,8 +28,8 @@ def setup():
     GPIO.setup(clockPin, GPIO.OUT)
     for pin in digitPin:
         GPIO.setup(pin,GPIO.OUT)
-    
-def shiftOut(dPin,cPin,order,val):      
+
+def shiftOut(dPin,cPin,order,val):
     for i in range(0,8):
         GPIO.output(cPin,GPIO.LOW);
         if(order == LSBFIRST):
@@ -35,12 +37,12 @@ def shiftOut(dPin,cPin,order,val):
         elif(order == MSBFIRST):
             GPIO.output(dPin,(0x80&(val<<i)==0x80) and GPIO.HIGH or GPIO.LOW)
         GPIO.output(cPin,GPIO.HIGH)
-            
+
 def outData(data):      # function used to output data for 74HC595
     GPIO.output(latchPin,GPIO.LOW)
     shiftOut(dataPin,clockPin,MSBFIRST,data)
     GPIO.output(latchPin,GPIO.HIGH)
-    
+
 def selectDigit(digit): # Open one of the 7-segment display and close the remaining three, the parameter digit is optional for 1,2,4,8
     GPIO.output(digitPin[0],GPIO.LOW if ((digit&0x08) == 0x08) else GPIO.HIGH)
     GPIO.output(digitPin[1],GPIO.LOW if ((digit&0x04) == 0x04) else GPIO.HIGH)
@@ -64,14 +66,14 @@ def display(dec):   # display function for 7-segment display
     selectDigit(0x08)   # Select the fourth, and display the thousands digit
     outData(num[dec%10000//1000])
     time.sleep(0.003)
-def timer():       
+def timer():
     global counter
     global t
     t = threading.Timer(1.0,timer)      # reset time of timer to 1s
     t.start()                           # Start timing
-    counter+=1                          
+    counter+=1
     print ("counter : %d"%counter)
-    
+
 def loop():
     global t
     global counter
@@ -79,17 +81,16 @@ def loop():
     t.start()                           # Start timing
     while True:
         display(counter)                # display the number counter
-        
-def destroy():  
+
+def destroy():
     global t
-    GPIO.cleanup()      
-    t.cancel()     
+    GPIO.cleanup()
+    t.cancel()
 
 if __name__ == '__main__': # Program entrance
     print ('Program is starting...' )
-    setup() 
+    setup()
     try:
-        loop()  
+        loop()
     except KeyboardInterrupt:   # Press ctrl-c to end the program.
-        destroy()  
- 
+        destroy()

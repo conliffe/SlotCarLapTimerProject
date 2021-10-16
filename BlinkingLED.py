@@ -1,3 +1,10 @@
+################################################################################
+# Author: CanaKit Exercise
+# Date: 2 January 2020
+# Description: This code makes an LED blink at 1 second interval
+# This code needs Raspberry Pi hardware and circuit electronics in order to run.
+################################################################################
+
 import RPi.GPIO as GPIO
 import time
 

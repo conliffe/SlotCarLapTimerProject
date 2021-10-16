@@ -2,15 +2,17 @@
 ########################################################################
 # Filename    : Lap_timer_Carl_with_buttons.py
 # Description : Reports on the time lapsed between detections of a sensor.
-# For this test code s button will be the sensor for the lap.
+# For this test code a button will be the sensor for the lap.
 # Also will flash an LED on each lap detection, and green LED to indicate
 # fastest lap
-# 2 Buttons - one to reset timings, one to display fastest lap.
-# For test code the 
+# 2 Buttons - one to reset timing, and one to display fastest lap.
+# This code needs Raspberry Pi hardware and circuit electronics in order to run.
+#
 # Uses adafruit library to display lap times on 7 segment, 4 digit display
 #
 # Author      : Carl Conliffe based on Scalextric Timer code
-# Modification: 24 Jan 2020
+# Created: 24 Jan 2020
+# Modification: 16 Oct 2021
 ########################################################################
 
 
@@ -84,14 +86,14 @@ def display(time):
 #    segment.setColon(True)
 #    segment.writeDigit(3, int(str(time)[2]))
 #    segment.writeDigit(4, int(str(time)[3]))
-    
+
 # Function to determine what actions to take on new lap detection
 def new_lap(channel):
     lap_detect()
     global count    # This variable is the lap count.  May want to make this user inputable.
     global time_1    # This is the previous time or time at start of lap
     global time_2    # This is the current time or time at end of lap
-    global lap_time  # This is the current lap time 
+    global lap_time  # This is the current lap time
     global fastest_lap    # This is the fasted lap time
     if count < 1:   # This executes on the first lap only to set the start time
         time_1 = time.time()    # this is the start time and the time at the begining of lap #1
@@ -144,13 +146,13 @@ GPIO.add_event_detect(20, GPIO.FALLING, callback=new_lap, bouncetime=2000) # The
 #    if buttonPushed == "fast lap":
 #        display_fastest(23)
 GPIO.add_event_detect(21, GPIO.FALLING, callback=display_fastest, bouncetime=200) # This is display fasted lap
-  
+
 try:
-    
+
     while True:
         time.sleep(0.01)
         pass
-    
+
 finally:
     print('Done!!  The Race is over.')
 #    segment = SevenSegment(address=0x70)

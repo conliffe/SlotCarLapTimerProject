@@ -1,20 +1,21 @@
-#!/usr/bin/env python3
 ########################################################################
 # Filename    : fileneme.py
-# Description : 
+# Description :
 #
 # Author      : Carl Conliffe
 # Created     : Date
 # Modification: Date
 ########################################################################
 
+#!/usr/bin/env python3
+
 ###### List of variables ###########
-# 
+#
 #
 ####################################
 
 ###### List of funcions ############
-# 
+#
 ####################################
 
 

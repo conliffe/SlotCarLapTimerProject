@@ -76,14 +76,14 @@ def display(time):
 #    segment.setColon(True)
 #    segment.writeDigit(3, int(str(time)[2]))
 #    segment.writeDigit(4, int(str(time)[3]))
-    
+
 # Function to determine what actions to take on new lap detection
 def new_lap(channel):
     lap_detect()
     global count    # This variable is the lap count.  May want to make this user inputable.
     global time_1    # This is the previous time or time at start of lap
     global time_2    # This is the current time or time at end of lap
-    global lap_time  # This is the current lap time 
+    global lap_time  # This is the current lap time
     global fastest_lap    # This is the fasted lap time
     if count < 1:   # This executes on the first lap only to set the start time
         time_1 = time.time()    # this is the start time and the time at the begining of lap #1
@@ -137,11 +137,11 @@ while True:
         new_lap(24)
     #GPIO.add_event_detect(24, GPIO.FALLING, callback=new_lap, bouncetime=2000)
     try:
-    
+
         while True:
             time.sleep(0.01)
             pass
-    
+
     finally:
         print('Done!!  The Race is over.')
 #    segment = SevenSegment(address=0x70)

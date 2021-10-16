@@ -1,6 +1,9 @@
+################################################################################
 # Author: CanaKit Exercise
 # Date: 2 January 2020
-# Description: TWhen you push the button the Red LED turns on.
+# Description: When you push the button the Red LED turns on.
+# This code needs Raspberry Pi hardware and circuit electronics in order to run.
+################################################################################
 
 import RPi.GPIO as GPIO
 import time

@@ -1,8 +1,11 @@
+################################################################################
 # Author: Carl M. Conliffe
 # Date: 6 January 2020
 # Description: # This progran detects any one of 4 push buttons and counts
 # how many times it is pushed.  It is testing the concept that will go into
 # detecting a lap in the lap counter
+# This code needs Raspberry Pi hardware and circuit electronics in order to run.
+################################################################################
 
 import RPi.GPIO as GPIO
 import time
@@ -67,7 +70,7 @@ while True:
     else:
         print ("Yellow = ", Yellow1, ",Blue = ", Blue2, ", Red = ", Red3, ", Green = ", Green4)
 
-    
+
 #    GPIO.output(18, True)
 #    time.sleep(1)
 #    GPIO.output(18, False)

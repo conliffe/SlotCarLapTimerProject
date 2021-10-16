@@ -35,8 +35,8 @@ def inputRaceData():
     numberOfLaps = int(input("Enter The Number of Laps: "))  # Typecasting
     lane1CarUID = input("Enter UID for car on lane #1: ")    # Enter the race information
     print(raceName, 'will be a ', numberOfLaps, ' lap race.')
-    
-## End of section for definition of functions ##  
+
+## End of section for definition of functions ##
 
 # Start on main program
 # User input to configure the race
@@ -47,7 +47,7 @@ openCSVFile()
 startTime = time.time()
 localStartTime = time.localtime()
 previousTime = startTime
-                            
+
 for n in range(numberOfLaps):
     lapNumber += 1
     sleepTime = random.randint(1,4)  # Genertes random number for simulated lap time delay
@@ -63,19 +63,19 @@ for n in range(numberOfLaps):
         print('White Flag, Last Lap')
     if lapNumber == (numberOfLaps):
         print('Checkered Flag, Race Over!!!')
-            
+
 raceTime = time.time() - startTime
 endTime = time.time()
 localEndTime = time.localtime()
 
 # Output race stats to screen
-print('This is data for: ', raceName) 
-formattedStartTime = time.strftime("%d %B %Y at %H:%M:%S %Z ", localStartTime)  
+print('This is data for: ', raceName)
+formattedStartTime = time.strftime("%d %B %Y at %H:%M:%S %Z ", localStartTime)
 print("Race start: ", formattedStartTime)  # Prints the time and date the race started
-formattedEndTime = time.strftime("%d %B %Y at %H:%M:%S %Z ", localEndTime)  
+formattedEndTime = time.strftime("%d %B %Y at %H:%M:%S %Z ", localEndTime)
 print("Race finish: ", formattedEndTime)  # Prints the time and date the race ended
 print(numberOfLaps, 'lap race is completed')          # Prints the total laps of the race
-print('R ace Time = ', "%.2f" % raceTime, " seconds")      # Prints the lap # & lap time to 2 decimal places
+print('Race Time = ', "%.2f" % raceTime, " seconds")      # Prints the lap # & lap time to 2 decimal places
 print('Fastest Lap Time = ', "%.2f" % fastestLap, " seconds")   # Prints the lap # & lap time to 2 decimal places
 
 # Write data to .txt file
@@ -91,5 +91,3 @@ f.write('Race Time = ' + raceTimeInString + ' seconds\n')
 f.write('Fastest Lap = ' + fastestLapInString + ' seconds\n')
 f.write('\n')
 f = f.close()
-    
-    

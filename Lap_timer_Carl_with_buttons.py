@@ -2,12 +2,12 @@
 ########################################################################
 # Filename    : Lap_timer_Carl_with_buttons.py
 # Description : Reports on the time lapsed between detections of a sensor.
-# For this test code a button will be the sensor for the lap.
-# Also will flash an LED on each lap detection, and green LED to indicate
+# For this test code a momentary push button will be the sensor for the lap.
+# Also will flash a red LED on each lap detection, and green LED to indicate
 # fastest lap
 # 2 Buttons - one to reset timing, and one to display fastest lap.
 # This code needs Raspberry Pi hardware and circuit electronics in order to run.
-#
+# KiCad Filename: LapTimeCounter.sch
 # Uses adafruit library to display lap times on 7 segment, 4 digit display
 #
 # Author      : Carl Conliffe based on Scalextric Timer code
@@ -35,13 +35,13 @@ GPIO.setmode(GPIO.BCM)
 reset = 16  # GPIO16 pin 36, I think this is connected to a momentary switch to reset the timer
 reed = 20   # GPIO20 pin 38
 fastest_lap = 21    #GPIO21 pin 40
-#red_led = 17
-#green_led = 27
+red_led = 19    #GPIO19 pin 35
+green_led = 26  #GPIO26 pin 37
 
 # configure outputs for LED
 print('The LEDs are being configured.  Red for lap detection and green for fasted lap')
-#GPIO.setup(red_led, GPIO.OUT)    #Red LED channel 17
-#GPIO.setup(green_led, GPIO.OUT)     #Green LED channel 27
+GPIO.setup(red_led, GPIO.OUT)    #Red LED channel 19
+GPIO.setup(green_led, GPIO.OUT)    #Green LED channel 26
 
 # Configure inputs using event detection, pull up resistors
 print('Configuring the detection input channels for the GPIO')
@@ -51,8 +51,8 @@ GPIO.setup(fastest_lap, GPIO.IN, pull_up_down=GPIO.PUD_UP)    #fastest_lap chann
 
 # Switch off LEDs
 print('Switching all LEDs off')
-#GPIO.output(red_led, False)
-#GPIO.output(green_led, False)
+GPIO.output(red_led, False)
+GPIO.output(green_led, False)
 
 # Define new variables for lap counting and remembering fastest lap time
 count = 0
@@ -62,20 +62,20 @@ fastest_lap = 99.99
 def lap_detect():
     print('Lap was detected. Flashing a Red LED')
     print('Red LED ON')
-#    GPIO.output(red_led, True)
-#    time.sleep(0.1)
-    print('Red LED off')
-#    GPIO.output(red_led, False)
+    GPIO.output(red_led, True)  # turns red LED on
+    time.sleep(0.1)
+    print('Red LED off')    # turns red LED off
+    GPIO.output(red_led, False)
 
 # Function to repeatedly flash green LED when a fastest lap occurs
 def fastest_flash():
     for i in range(0,5):
         print('You just completed your fastest lap!')
         print('Green LED ON')
-#        GPIO.output(green_led, True)
+        GPIO.output(green_led, True)    # turns green LED on
         time.sleep(0.1)
         print('Green LED OFF')
-#        GPIO.output(green_led, False)
+        GPIO.output(green_led, False)  # turns green LED on
         time.sleep(0.1)
 
 # Function to write lap time to the 7 Segment display

@@ -15,7 +15,6 @@
 # Modification: 16 Oct 2021
 ########################################################################
 
-
 # Import libraries
 import RPi.GPIO as GPIO
 import time

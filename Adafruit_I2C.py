@@ -4,6 +4,9 @@ import smbus
 
 # ===========================================================================
 # Adafruit_I2C Class
+#
+# Carl updated this to work with Python 3.X.  It was writen for Python 2.X
+# 10/18/22
 # ===========================================================================
 
 class Adafruit_I2C(object):
@@ -54,7 +57,8 @@ class Adafruit_I2C(object):
     return val
 
   def errMsg(self):
-    print "Error accessing 0x%02X: Check your I2C address" % self.address
+    #print "Error accessing 0x%02X: Check your I2C address" % self.address  #This is Python 2.X syntax
+    print ("Error accessing 0x%02X: Check your I2C address" % self.address) #This is Python 3.X syntax
     return -1
 
   def write8(self, reg, value):
@@ -62,8 +66,10 @@ class Adafruit_I2C(object):
     try:
       self.bus.write_byte_data(self.address, reg, value)
       if self.debug:
-        print "I2C: Wrote 0x%02X to register 0x%02X" % (value, reg)
-    except IOError, err:
+        #print "I2C: Wrote 0x%02X to register 0x%02X" % (value, reg)   #This is Python 2.X syntax
+        print ("I2C: Wrote 0x%02X to register 0x%02X" % (value, reg))  #This is Python 3.X syntax
+    #except IOError, err: #This is Python 2.X syntax
+    except IOError as err: #This is Python 3.X syntax
       return self.errMsg()
 
   def write16(self, reg, value):
@@ -73,7 +79,8 @@ class Adafruit_I2C(object):
       if self.debug:
         print ("I2C: Wrote 0x%02X to register pair 0x%02X,0x%02X" %
          (value, reg, reg+1))
-    except IOError, err:
+    #except IOError, err:  #This is Python 2.X syntax
+    except IOError as err: #This is Python 3.X syntax       
       return self.errMsg()
 
   def writeRaw8(self, value):
@@ -81,18 +88,23 @@ class Adafruit_I2C(object):
     try:
       self.bus.write_byte(self.address, value)
       if self.debug:
-        print "I2C: Wrote 0x%02X" % value
-    except IOError, err:
+        #print "I2C: Wrote 0x%02X" % value  #This is Python 2.X syntax         
+        print ("I2C: Wrote 0x%02X" % value)  #This is Python 3.X syntax
+    #except IOError, err:  #This is Python 2.X syntax
+    except IOError as err: #This is Python 3.X syntax       
       return self.errMsg()
 
   def writeList(self, reg, list):
     "Writes an array of bytes using I2C format"
     try:
       if self.debug:
-        print "I2C: Writing list to register 0x%02X:" % reg
-        print list
+        #print "I2C: Writing list to register 0x%02X:" % reg  #This is Python 2.X syntax
+        print ("I2C: Writing list to register 0x%02X:" % reg)  #This is Python 2.X syntax
+        #print list  #This is Python 2.X syntax
+        print (list)  #This is Python 3.X syntax
       self.bus.write_i2c_block_data(self.address, reg, list)
-    except IOError, err:
+    #except IOError, err:  #This is Python 2.X syntax 
+    except IOError as err:  #This is Python 3.X syntax
       return self.errMsg()
 
   def readList(self, reg, length):
@@ -102,9 +114,11 @@ class Adafruit_I2C(object):
       if self.debug:
         print ("I2C: Device 0x%02X returned the following from reg 0x%02X" %
          (self.address, reg))
-        print results
+        #print results  #This is Python 2.X syntax        
+        print (results)  #This is Python 3.X syntax
       return results
-    except IOError, err:
+    #except IOError, err:  #This is Python 2.X syntax 
+    except IOError as err:  #This is Python 3.X syntax
       return self.errMsg()
 
   def readU8(self, reg):
@@ -115,7 +129,8 @@ class Adafruit_I2C(object):
         print ("I2C: Device 0x%02X returned 0x%02X from reg 0x%02X" %
          (self.address, result & 0xFF, reg))
       return result
-    except IOError, err:
+    #except IOError, err:  #This is Python 2.X syntax 
+    except IOError as err:  #This is Python 3.X syntax
       return self.errMsg()
 
   def readS8(self, reg):
@@ -127,7 +142,8 @@ class Adafruit_I2C(object):
         print ("I2C: Device 0x%02X returned 0x%02X from reg 0x%02X" %
          (self.address, result & 0xFF, reg))
       return result
-    except IOError, err:
+    #except IOError, err:  #This is Python 2.X syntax 
+    except IOError as err:  #This is Python 3.X syntax
       return self.errMsg()
 
   def readU16(self, reg, little_endian=True):
@@ -139,9 +155,11 @@ class Adafruit_I2C(object):
       if not little_endian:
         result = ((result << 8) & 0xFF00) + (result >> 8)
       if (self.debug):
-        print "I2C: Device 0x%02X returned 0x%04X from reg 0x%02X" % (self.address, result & 0xFFFF, reg)
+        #print "I2C: Device 0x%02X returned 0x%04X from reg 0x%02X" % (self.address, result & 0xFFFF, reg)  #Python 2.X syntax         
+        print ("I2C: Device 0x%02X returned 0x%04X from reg 0x%02X" % (self.address, result & 0xFFFF, reg))
       return result
-    except IOError, err:
+    #except IOError, err:  #This is Python 2.X syntax 
+    except IOError as err:  #This is Python 3.X syntax
       return self.errMsg()
 
   def readS16(self, reg, little_endian=True):
@@ -150,12 +168,15 @@ class Adafruit_I2C(object):
       result = self.readU16(reg,little_endian)
       if result > 32767: result -= 65536
       return result
-    except IOError, err:
+    #except IOError, err:  #This is Python 2.X syntax 
+    except IOError as err:  #This is Python 3.X syntax
       return self.errMsg()
 
 if __name__ == '__main__':
   try:
     bus = Adafruit_I2C(address=0)
-    print "Default I2C bus is accessible"
+    #print "Default I2C bus is accessible" #This is Python 2.X syntax    
+    print ("Default I2C bus is accessible") #This is Python 3.X syntax
   except:
-    print "Error accessing default I2C bus"
+    #print "Error accessing default I2C bus" #This is Python 2.X syntax      
+    print ("Error accessing default I2C bus") #This is Python 3.X syntax

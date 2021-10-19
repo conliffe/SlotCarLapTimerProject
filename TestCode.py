@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 ########################################################################
-# Filename    : Lap_timer_Carl_with_buttons.py
+# Filename: TestCode.py
 # Description : Reports on the time lapsed between detections of a sensor.
 # For this test code a momentary push button will be the sensor for the lap.
 # Also will flash a yellow LED on each lap detection, and green LED to indicate
@@ -12,34 +12,23 @@
 #
 # Author: Carl Conliffe based on Scalextric Timer code
 # Created: 24 Jan 2020
-# Modification: 18 Oct 2021, Activating 7 segment functionality
-#
-# Issues to debug:
-#  1) Lap times over 9.99 sec do not get displayed in 7 segment display.
-#     The display only shows "09:99" for 9.99 sec.  This makes sense as
-#     there is not digit "0" in the display(time) funtion.
-#  2) Need to implement 5 second countdown to start with christmas tree.
-#  3) Implement "race over" functionality baced on numver of laps.
-#  4) When this code get uncomments and fastest lap goes to 7 segment
-#     the green push button to display fastest lap not longer works. See
-#     display_fastest() function.  Lines 154.
+# Modification: 17 Oct 2021
 ########################################################################
 
 # Import libraries
 import RPi.GPIO as GPIO
 import time
-from Adafruit_7Segment import SevenSegment
+#from Adafruit_7Segment import SevenSegment
 
 # Set i2c address for display, and display zeros
-segment = SevenSegment(address=0x70)
-segment.writeDigit(0, 0)
-segment.writeDigit(1, 0)
-segment.writeDigit(3, 0)
-segment.writeDigit(4, 0)
+#segment = SevenSegment(address=0x70)
+#segment.writeDigit(0, 0)
+#segment.writeDigit(1, 0)
+#segment.writeDigit(3, 0)
+#segment.writeDigit(4, 0)
 
 # Configure the Pi to use the BCM pin names
 GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False) #to disable warnings
 
 # pins used for the switches, reed sensor and LED
 reset = 16  # GPIO16 pin 36, I think this is connected to a momentary switch to reset the timer
@@ -81,7 +70,7 @@ GPIO.output(led_1, False)
 
 # Define new variables for lap counting and remembering fastest lap time
 count = 0
-fastest_lap = 99999
+fastest_lap = 99.99
 
 # Function to flash yellow LED once
 def lap_detect():
@@ -107,10 +96,10 @@ def fastest_flash():
 def display(time):
     print('This is value for lap time that gets displayed in the 7 segment display')
     print('Your lap time = ', "%.3f" %time, ' seconds')
-    segment.writeDigit(1, int(str(time)[0]))
-    segment.setColon(True)
-    segment.writeDigit(3, int(str(time)[2]))
-    segment.writeDigit(4, int(str(time)[3]))
+#    segment.writeDigit(1, int(str(time)[0]))
+#    segment.setColon(True)
+#    segment.writeDigit(3, int(str(time)[2]))
+#    segment.writeDigit(4, int(str(time)[3]))
 
 # Function to determine what actions to take on new lap detection
 def new_lap(channel):
@@ -146,10 +135,10 @@ def reset(channel):
     count = 0
     fastest_lap = 99999
     print('Lap times reset to zero')
-    segment.writeDigit(0, 0)
-    segment.writeDigit(1, 0)
-    segment.writeDigit(3, 0)
-    segment.writeDigit(4, 0)
+#    segment.writeDigit(0, 0)
+#    segment.writeDigit(1, 0)
+#    segment.writeDigit(3, 0)
+#    segment.writeDigit(4, 0)
 
 # Function to write the fastest lap time to the display
 def display_fastest(channel):
@@ -167,7 +156,7 @@ def display_fastest(channel):
 GPIO.add_event_detect(16, GPIO.FALLING, callback=reset, bouncetime=200) # This is reset
 #    if buttonPushed == "new lap":
 #        new_lap(24)
-GPIO.add_event_detect(20, GPIO.FALLING, callback=new_lap, bouncetime=2000) # The is new lap
+GPIO.add_event_detect(20, GPIO.FALLING, callback=new_lap, bouncetime=200) # The is new lap
 #    if buttonPushed == "fast lap":
 #        display_fastest(23)
 GPIO.add_event_detect(21, GPIO.FALLING, callback=display_fastest, bouncetime=200) # This is display fasted lap

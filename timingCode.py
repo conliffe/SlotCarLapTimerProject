@@ -1,10 +1,10 @@
-#############################################################################
+===============================================================================
 # Author: Carl M. Conliffe
 # Date: 2 January 2020
 # Description: This program simulates a slot car race with one car and user
 # specified laps.  It displays lap information real time and then logs the
 # final race data to a filename.txt file in the same directory as the code
-#############################################################################
+===============================================================================
 
 # First things, first. Import the wxPython package.
 #import wx

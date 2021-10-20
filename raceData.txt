@@ -16,3 +16,15 @@ End Time = 16 October 2021 at 08:59:25 Pacific Daylight Time
 Race Time = 37.093926668167114 seconds
 Fastest Lap = 1.0045757293701172 seconds
 
+This is data for: Race #1
+Start Time = 19 October 2021 at 23:05:36 Pacific Daylight Time 
+End Time = 19 October 2021 at 23:05:56 Pacific Daylight Time 
+Race Time = 20.06409978866577 seconds
+Fastest Lap = 1.002589225769043 seconds
+
+This is data for: Race 2
+Start Time = 19 October 2021 at 23:07:46 Pacific Daylight Time 
+End Time = 19 October 2021 at 23:08:00 Pacific Daylight Time 
+Race Time = 14.028825044631958 seconds
+Fastest Lap = 1.0051844120025635 seconds
+

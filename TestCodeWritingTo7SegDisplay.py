@@ -1,7 +1,12 @@
-#########################################
-#This test code gets input from the user and has it writen to 7 segment Adafruit display.
-#10/18/2021
-##########################################
+# =============================================================================
+# Filename    : fileneme.py
+# Description : This test code gets input from the user and has it writen to
+# 7 segment Adafruit display.  This code uses a simple circcuit that drives the
+# Adafruit 4 digit 7 segment featherwing display.
+# Author      : Carl Conliffe
+# Created     : 18 October 2021
+# Modification: Date
+# =============================================================================
 
 import time
 import board

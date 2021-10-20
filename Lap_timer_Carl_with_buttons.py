@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-########################################################################
+# ==============================================================================
 # Filename    : Lap_timer_Carl_with_buttons.py
 # Description : Reports on the time lapsed between detections of a sensor.
 # For this test code a momentary push button will be the sensor for the lap.
@@ -10,9 +10,9 @@
 # KiCad Filename: LapTimeCounter.sch
 # Uses adafruit library to display lap times on 7 segment, 4 digit display
 #
-# Author: Carl Conliffe based on Scalextric Timer code
-# Created: 24 Jan 2020
-# Modification: 18 Oct 2021, Activating 7 segment functionality
+# Author       : Carl Conliffe based on Scalextric Timer code
+# Created      : 24 Jan 2020
+# Modification : 18 Oct 2021, Activating 7 segment functionality
 #
 # Issues to debug:
 #  1) Lap times over 9.99 sec do not get displayed in 7 segment display.
@@ -23,7 +23,7 @@
 #  4) When this code get uncomments and fastest lap goes to 7 segment
 #     the green push button to display fastest lap not longer works. See
 #     display_fastest() function.  Lines 154.
-########################################################################
+# ==============================================================================
 
 # Import libraries
 import RPi.GPIO as GPIO

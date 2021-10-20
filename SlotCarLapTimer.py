@@ -1,24 +1,25 @@
 #!/usr/bin/env python3
-###################################################################################################
+# =================================================================================================
 # Filename    : SlotCarlapTimer.py
 # Description : This code is for a Raspberry Pi circuit that will detect slot car laps and time
-#them.  It used IR sensors.  The program will calculate lap time, fasted lap and time a race
-# duration for the number of laps inputed by # the user as the race duration.  There is also a
+# them.  It used IR sensors.  The program will calculate lap time, fasted lap and time a race
+# duration for the number of laps inputed by the user as the race duration.  There is also a
 # countdown to start shown with 5 LEDs.  Data from the race is reported to a .csv file while also
 # being displayed to the screen.  There are also 4 push buttons that;
-# 1) reset lap # time and # counter,
-# 2) force a lap to be counted.  This is a debug feature and not used for a real race,
-# 3) display fasted lap on request during the race and
-# 4) lets user trigger start of race.  This is prompted from the screen display.  The circuit will
-# flash an LED on each lap detection, and blinking colored LED to # indicate the fastest lap.
+#      1) reset lap number time and number counter,
+#      2) force a lap to be counted.  This is a debug feature and not used for a real race,
+#      3) display fasted lap on request during the race and
+#      4) lets user trigger start of race.  This is prompted from the screen display.
+# The circuit will flash an LED on each lap detection, and blinking colored LED to  indicate the
+# fastest lap.
 # The schematic name that corresponds to this code is "Lap_Timer_Counter.sch" drawn in KiCad.
 #
 # Program does not currently use adafruit library to display lap times on 7 segment, 4 digit display
 # yet
 #
-# Author      : Carl Conliffe based on Scalextric Timer code
-# Modification: 8 February 2020
-########################################################################
+# Author       : Carl Conliffe based on Scalextric Timer code
+# Modification : 8 February 2020
+# =================================================================================================
 
 # ================================ GPIO ASSIGNMENTS ===============================================
 # GPIO Name/Num   | Pin | Variable/Signal | I/O || GPIO Name/Num   | Pin | Variable/Signal | I/O ||
@@ -75,7 +76,7 @@
 # startRace                 # Input to GPIO to start race when prompted
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-# ===== List of functions =====================================================================
+# ---------- List of functions -----------------------------------------------------------------------
 # display(time)               --  Displays current lap time to 7 segment display [not used yet]
 # displayFastestLap(channel)  --  Displays fasted lap to 7 segment display [not used yet]
 # endingRoutine()             --  Cleans up everything once race is over & displays finish time
@@ -90,7 +91,7 @@
 # reset(channel)              --  Resets the race laps and fastest lap number
 # startSequence()             --  Sets race start time & countdown LED display
 # writeToTxtFile()            --  Stores the final race data to a .txt file
-# ===============================================================================================
+# -----------------------------------------------------------------------------------------------------
 
 # Import libraries
 import RPi.GPIO as GPIO    # Has setups for using GPIO with Raspberry Pi board
@@ -361,8 +362,8 @@ startSequence()   # Calls the start sequence
 GPIO.add_event_detect(16, GPIO.FALLING, callback=reset, bouncetime=200)  # This is reset  # Interrupt
 GPIO.add_event_detect(6, GPIO.FALLING, callback=newLap, bouncetime=2000) # The is new lap test button  # Interrupt
 GPIO.add_event_detect(17, GPIO.FALLING, callback=displayFastestLap, bouncetime=200) # This is display fasted lap  # Interrupt
-GPIO.add_event_detect(4, GPIO.FALLING, callback=newLap, bouncetime=200)  # The is new lap Break Beam Detection  # Interrupt
-GPIO.add_event_detect(5, GPIO.FALLING, callback=newLap, bouncetime=200)  # The is new lap Reflective Detection  # Interrupt
+GPIO.add_event_detect(4, GPIO.FALLING, callback=newLap, bouncetime=200)  # This is new lap Break Beam Detection  # Interrupt
+GPIO.add_event_detect(5, GPIO.FALLING, callback=newLap, bouncetime=200)  # This is new lap Reflective Detection  # Interrupt
 
 
 try:

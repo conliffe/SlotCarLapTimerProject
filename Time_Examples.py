@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-########################################################################
-# Filename    : Time_Examples.py
-# Description :  This program shows different funtions for using time
-# Author      : Carl Conliffe
-# Created     : 2 February 2020
-# Modification: Date
-########################################################################
+===============================================================================
+# Filename     : Time_Examples.py
+# Description  : This program shows different funtions for using time
+# Author       : Carl Conliffe
+# Created      : 2 February 2020
+# Modification : Date
+===============================================================================
 
 ###### List of variables ###########
 # timeUTCEpoch

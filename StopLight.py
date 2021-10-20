@@ -1,11 +1,11 @@
-#############################################################################
-# Author: Carl M. Conliffe
-# Date: 2 January 2020
-# Description: This program simulates a traffic signal.
+===============================================================================
+# Author      : Carl M. Conliffe
+# Date        : 2 January 2020
+# Description : This program simulates a traffic signal.
 # It stays green for 20 secounds this goes yellow for 2 seconds
 # then stays red for 20 seconds.
 # This code needs Raspberry Pi hardware and circuit electronics in order to run.
-#############################################################################
+===============================================================================
 
 import RPi.GPIO as GPIO
 import time

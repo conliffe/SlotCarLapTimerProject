@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-#############################################################################
-# Filename    : StopWatch.py
-# Description : Control 4_Digit_7_Segment_Display with 74HC595
+===============================================================================
+# Filename     : StopWatch.py
+# Description  : Control 4_Digit_7_Segment_Display with 74HC595
 # This code needs Raspberry Pi hardware in order to run.
-# Author      : www.freenove.com
-# modification: 2019/12/27
-########################################################################
+# Author       : www.freenove.com
+# modification : 2019/12/27
+===============================================================================
 
 import RPi.GPIO as GPIO
 import time

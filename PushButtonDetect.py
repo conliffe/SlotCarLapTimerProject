@@ -1,14 +1,14 @@
-################################################################################
-# Filename: PushButtonDetect.py
-# Description: # This progran detects any one of 4 push buttons and counts
+# ==============================================================================
+# Filename       : PushButtonDetect.py
+# Description    : This progran detects any one of 4 push buttons and counts
 # how many times it is pushed.  It is testing the concept that will go into
 # detecting a lap in the lap counter
 # This code needs Raspberry Pi hardware and circuit electronics in order to run.
-# KiCad Filename: Push Button Detector.sch
-# Author: Carl M. Conliffe
-# Created: 6 Jan 2020
-# Modification: 16 Oct 2021
-################################################################################
+# KiCad Filename : Push Button Detector.sch
+# Author         : Carl M. Conliffe
+# Created        : 6 Jan 2020
+# Modification   : 16 Oct 2021
+# ==============================================================================
 
 import RPi.GPIO as GPIO
 import time

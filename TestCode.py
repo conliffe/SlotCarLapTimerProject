@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-########################################################################
-# Filename: TestCode.py
-# Description : Reports on the time lapsed between detections of a sensor.
+===============================================================================
+# Filename       : TestCode.py
+# Description    : Reports on the time lapsed between detections of a sensor.
 # For this test code a momentary push button will be the sensor for the lap.
 # Also will flash a yellow LED on each lap detection, and green LED to indicate
 # fastest lap
 # 2 Buttons - one to reset timing, and one to display fastest lap.
 # This code needs Raspberry Pi hardware and circuit electronics in order to run.
-# KiCad Filename: LapTimeCounter.sch
+# KiCad Filename : LapTimeCounter.sch
 # Uses adafruit library to display lap times on 7 segment, 4 digit display
 #
-# Author: Carl Conliffe based on Scalextric Timer code
-# Created: 24 Jan 2020
-# Modification: 17 Oct 2021
-########################################################################
+# Author         : Carl Conliffe based on Scalextric Timer code
+# Created        : 24 Jan 2020
+# Modification   : 17 Oct 2021
+===============================================================================
 
 # Import libraries
 import RPi.GPIO as GPIO

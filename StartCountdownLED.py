@@ -1,4 +1,4 @@
-########################################################################
+# ======================================================================
 # Filename    : StartCountdownLED.py
 # Description : This code does a race start sequence using LED bar.  It
 # uses a 5 LED segment to count down to start.  All LED's intially Lit
@@ -7,7 +7,8 @@
 # Author      : Carl Conliffe
 # Created     : 16 October 2021
 # Modification: Date
-########################################################################
+# Need to test wiht light bar curcuit
+=========================================================================
 
 import RPi.GPIO as GPIO
 import time
@@ -27,6 +28,7 @@ GPIO.output(7, False)
 GPIO.output(8, False)
 GPIO.output(25, False)
 time.sleep(1)
+
 # Turn all LED segments on
 GPIO.output(13, True)
 GPIO.output(12, True)
@@ -34,15 +36,23 @@ GPIO.output(7, True)
 GPIO.output(8, True)
 GPIO.output(25, True)
 time.sleep(1)
+
 # Count down sequence
+print ("Countdown to race start begins")
+print("Five")
 GPIO.output(13, False)  # Turn off LED #5
 time.sleep(1)
+print("Four")
 GPIO.output(12, False)  # Turn off LED #4
 time.sleep(1)
+print("Three")
 GPIO.output(7, False)   # Turn off LED #3
 time.sleep(1)
+print("Two")
 GPIO.output(8, False)   # Turn off LED #2
 time.sleep(1)
+print("One")
 GPIO.output(25, False)  # Turn off LED #1
 time.sleep(1)
 # Go!!!!
+print("GO!!!")

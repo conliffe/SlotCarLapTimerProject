@@ -1,4 +1,4 @@
-Using a headless Raspberry Pi to record lap times on a Scalextric slot car circuit.
+
 
 # License Notice
 This project uses i2C libraries written by Limor Fried/Ladyada for Adafruit Industries. <br />

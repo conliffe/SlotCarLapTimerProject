@@ -4,8 +4,6 @@ Copyright (c) 2012 Adafruit Industries<br />
 https://github.com/adafruit/Adafruit-LED-Backpack-Library<br />
 https://www.adafruit.com/
 
-# Quick Overview
-
 # Descriptions of files
 <b> This is the description of what the Python files in this project do. </b><br>
 
@@ -21,8 +19,7 @@ https://www.adafruit.com/
 <li> Uses adafruit library to display lap times on 7 segment, 4 digit display. </li>
 (/ul>
 <br>
-# Scalextric_timer
-Scalextric_timer.py
+# Scalextric_timer.py
 <ul>
 <li> Using a reed sensor to detect changes in magnetic field as slot car passes over track </li>
 <li> Uses Adafruit segment display and i2C libraries to display lap times </li>
@@ -36,8 +33,7 @@ Scalextric_timer.py
 (/ul>
 <br>
 
-# SlotCarlapTimer
-SlotCarlapTimer.py
+# SlotCarlapTimer.py
 <ul>
 <li> This code is for a Raspberry Pi circuit that will detect slot car laps and time them. </li>
 <li> It uses IR sensors. </li>
@@ -56,8 +52,7 @@ SlotCarlapTimer.py
 (/ul>
 <br>
 
-# timingCode
-timingCode.py:
+# timingCode.py
 <ul>
 <li> Simulates a slot car race with one car. </li>
 <li> Lets user specify the number of laps. </li>  
@@ -67,29 +62,25 @@ timingCode.py:
 <br>
 
 <b> This is all of the test code I used to check out functionality that goes into the code above </b?<br>
-# AdafruitTestCode1
-AdafruitTestCode1.py
+# AdafruitTestCode1.py
 <ul>
 <li> This is test code to check out how to use the Adafruit code in the lap timer code. </li>
 <li> Uses adafruit library to display lap times on 7 segment, 4 digit display. </li>
 (/ul>
 <br>
-# BlinkingLED
-BlinkingLED.py
+# BlinkingLED.py
 <ul>
 <li> This code makes an LED blink at 1 second interval </li>
 <li> This code needs Raspberry Pi hardware and circuit electronics in order to run. </li>
 (/ul>
 <br>
-# ControlingLEDwithButton
-ControlingLEDwithButton.py
+# ControlingLEDwithButton.py
 <ul>
 <li> When you push the button the Red LED turns on. </li>
 <li> This code needs Raspberry Pi hardware and circuit electronics in order to run. </li>
 (/ul>
-<br><b> This is a list of the test code written to try out functionality that is used in code above. </b><br>
-# StartCountdownLED
-StartCountdownLED.py
+<br>
+# StartCountdownLED.py
 <ul>
 <li> This code does a race start sequence using LED bar. </li>
 <li> It uses a 5 LED segment to count down to start. </li>
@@ -98,29 +89,26 @@ StartCountdownLED.py
 <li> This simulates a start Christmas tree. </li>
 (/ul>
 <br>
-# Stoplight
-Stoplight.py
+# Stoplight.py
 <ul>
 <li> This program simulates a traffic signal. </li>
 <li> It stays green for 20 sec. then goes yellow for 2 sec. then stays red for 20 sec. </li>
 <li> This code needs Raspberry Pi hardware and circuit electronics in order to run. </li>
 (/ul>
 <br>
-# StopWatch
-StopWatch.py
+# StopWatch.py
 <ul>
 <li> Controls 4_Digit_7_Segment_Display with 74HC595. </li>
 <li> This code needs Raspberry Pi hardware in order to run. </li>
 (/ul>
 <br>
-# TestCodeWritingTo7SegDisplay
-TestCodeWritingTo7SegDisplay.py:
+# TestCodeWritingTo7SegDisplay.py
 <ul>
 <li> This test code gets input from the user and has it written to 7 segment Adafruit display. </li>
 <li> Uses a simple circuit that drives the Adafruit 4 digit 7 segment featherwing display. </li>
 (/ul>
-<br>#Time_Examples
-Time_Examples.py:
+<br>
+# Time_Examples.py
 <ul>
 <li> This program shows different functions for using time. </li>
 (/ul>

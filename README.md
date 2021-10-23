@@ -1,5 +1,3 @@
-
-
 # License Notice
 This project uses i2C libraries written by Limor Fried/Ladyada for Adafruit Industries. <br />
 Copyright (c) 2012 Adafruit Industries<br />
@@ -8,11 +6,10 @@ https://www.adafruit.com/
 
 # Quick Overview
 
-
-# Descriptions of files ########################################################
+# Descriptions of files
 <b> This is the description of what the Python files in this project do. </b><br>
-# Lap_timer_Carl_with_buttons
-Lap_timer_Carl_with_buttons.py
+
+# Lap_timer_Carl_with_buttons.py
 <ul>
 <li> Reports on the time lapsed between detection of a sensor. </li>
 <li> A yellow momentary push button is the sensor for the lap. </li>

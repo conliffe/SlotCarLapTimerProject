@@ -32,7 +32,6 @@ https://www.adafruit.com/
 <li> This is the code that I used to base all my code on. </li>
 (/ul>
 <br>
-
 # SlotCarlapTimer.py
 <ul>
 <li> This code is for a Raspberry Pi circuit that will detect slot car laps and time them. </li>
@@ -41,12 +40,10 @@ https://www.adafruit.com/
 <li> There is also a countdown to start shown with 5 LEDs. </li>
 <li> Data from the race is reported to a .csv file while also being displayed to the screen. </li>
 <li> There are also 4 push buttons that </li>
-<ol>
-<li> Reset lap number time and number counter. </li>
-<li> Force a lap to be counted.  This is a debug feature and not used for a real race. </li>
-<li> Display fasted lap on request during the race. </li>
-<li> Lets user trigger start of race.  This is prompted from the screen display. </li>
-(/ol>
+<li> 1) Reset lap number time and number counter. </li>
+<li> 2) Force a lap to be counted.  This is a debug feature and not used for a real race. </li>
+<li> 3) Display fasted lap on request during the race. </li>
+<li> 4) Lets user trigger start of race.  This is prompted from the screen display. </li>
 <li> The circuit will flash an LED on each lap detection, and blinking colored LED to  indicate the fastest lap. </li>
 <li> The schematic name that corresponds to this code is "Lap_Timer_Counter.sch" drawn in KiCad. </li>
 (/ul>

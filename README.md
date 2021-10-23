@@ -30,7 +30,7 @@ https://www.adafruit.com/
 <li> Also flashes an LED on each lap detection, and green to indicate fastest lap. </li>
 <li> There are 2 Buttons - one to reset timings, one to display fastest lap. </li>
 <li> This is the code that I used to base all my code on. </li>
-(/ul>
+</ul>
 <br>
 # SlotCarlapTimer.py
 <ul>

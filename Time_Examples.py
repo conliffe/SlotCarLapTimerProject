@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-===============================================================================
+# ==============================================================================
 # Filename     : Time_Examples.py
 # Description  : This program shows different funtions for using time
 # Author       : Carl Conliffe
 # Created      : 2 February 2020
 # Modification : Date
-===============================================================================
+# ==============================================================================
 
 ###### List of variables ###########
 # timeUTCEpoch
@@ -58,16 +58,15 @@ print("Current time in epoch UTC: ", timeUTCEpoch)
 # characters long and is space padded if the day is a single digit,
 # e.g.: 'Wed Jun  9 04:26:40 1993'
 currentTime = time.ctime()
-print("\nCurrent time in Day, Month, date, time(hr:min:sec), year: ", currentTime)
-
+print("\nCurrent time in Day, Month, Date, time(hr:min:sec), year: ", currentTime)
 time1 = time.localtime()
 print("\nCurrent time in [time.struct_time (tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec, tm_wday, tm_yday, tm_isdst)]: ", time1)
 
 # Suspend execution of the calling thread for the given number of seconds.
 # The argument may be a floating point number to indicate a more precise
 # sleep time.
-print("\nTaking a 1.5 sec delay between the next line executed")
-time.sleep(1.5)
+print("\nTaking a 5 sec delay between the next line executed")
+time.sleep(5)
 
 # Convert a tuple or struct_time representing a time as returned by gmtime()
 # or localtime() to a string as specified by the format argument.

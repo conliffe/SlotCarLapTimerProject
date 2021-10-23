@@ -28,3 +28,9 @@ End Time = 19 October 2021 at 23:08:00 Pacific Daylight Time
 Race Time = 14.028825044631958 seconds
 Fastest Lap = 1.0051844120025635 seconds
 
+This is data for: Daytona 500
+Start Time = 23 October 2021 at 11:12:02 Pacific Daylight Time 
+End Time = 23 October 2021 at 11:12:27 Pacific Daylight Time 
+Race Time = 24.136722087860107 seconds
+Fastest Lap = 1.0049428939819336 seconds
+

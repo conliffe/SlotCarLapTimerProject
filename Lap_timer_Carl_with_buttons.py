@@ -12,8 +12,11 @@
 #
 # Author       : Carl Conliffe based on Scalextric Timer code
 # Created      : 24 Jan 2020
-# Modification : 18 Oct 2021, Activating 7 segment functionality
-#
+# Modification : 22 Oct 2021, Documentation inprovements in the code.  Added GPIO2
+# assignment table.  Added table for list of variables.  Added List of functions.
+# Changed name of fastest_lap variable that was used for push button since it was
+# used for time a well.  New name is fastestlapButton.
+
 # Issues to debug:
 #  1) Lap times over 9.99 sec do not get displayed in 7 segment display.
 #     The display only shows "09:99" for 9.99 sec.  This makes sense as
@@ -24,6 +27,56 @@
 #     the green push button to display fastest lap not longer works. See
 #     display_fastest() function.  Lines 154.
 # ==============================================================================
+
+# ================================ GPIO ASSIGNMENTS ===============================================
+# GPIO Name/Num   | Pin | Variable/Signal | I/O || GPIO Name/Num   | Pin | Variable/Signal | I/O ||
+# ----------------|-----|-----------------|-----||-----------------|-----|-----------------|-----||
+# 3.3V            |  1  | N/A             | Out || 5V              |  2  | N/A             | Out ||
+# I2C SDA  GPIO2  |  3  |                 |     || 5V              |  4  | N/A             | Out ||
+# I2C SCL  GPIO3  |  5  |                 |     || GND             |  6  | N/A             | Out ||
+#          GPIO4  |  7  |                 | In  || UART TXD GPIO14 |  8  |                 |     ||
+# GND             |  9  | N/A             | Out || UART RXD GPIO15 | 10  |                 |     ||
+#          GPIO17 | 11  |                 | In  || PCM CLK  GPIO18 | 12  |                 |     ||
+#          GPIO27 | 13  |                 | In  || GND             | 14  | N/A             | Out ||
+#          GPIO22 | 15  |                 | Out ||          GPIO23 | 16  |                 | Out ||
+# 3.3V            | 17  | N/A             | Out ||          GPIO24 | 18  |                 | Out ||
+# SPI MOSI GPIO10 | 19  |                 |     || GND             | 20  | N/A             | Out ||
+# SPI MISO GPIO9  | 21  |                 |     ||          GPIO25 | 22  | led_5           | Out ||
+# SPI SCLK GPIO11 | 23  |                 |     || SPI CE0  GPIO8  | 24  | led_4           | Out ||
+# GND             | 25  | N/A             | Out || SPI CE1  GPIO7  | 26  | led_3           | Out ||
+# ID SD           | 27  | N/A             |     || ID SC           | 28  | N/A             |     ||
+#          GPIO5  | 29  |                 | In  || GND             | 30  | N/A             | Out ||
+#          GPIO6  | 31  |                 | In  ||          GPIO12 | 32  | led_2           | Out ||
+#          GPIO13 | 33  | led_1           | Out || GND             | 34  | N/A             | Out ||
+# PCM FS   GPIO19 | 35  | yellow_led      | Out ||          GPIO16 | 36  | reset           | In  ||
+#          GPIO26 | 37  | green_led       | Out || PCM DIN  GPIO20 | 38  | reed            | In  ||
+# GND             | 39  | N/A             | Out || PCM DOUT GPIO21 | 40  | fastestLapButton| In  ||
+# =================================================================================================
+
+# +++++++++++ List of variables +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# count                     # Counts the number of laps.
+# fastestLapButton          # This is the push button switch that request the fasted lap of the race be displayed.
+# fastest_lap               # This is a global variable that is the fastest lap time.
+# i                         # Index for loops.
+# green_led                 # is the output to drive the green LED.
+# lap_time                  # This is a global variable that is the current lap time.
+# led_1, 2, 3, 4, 5         # Each represents an LED on the countdown christmas tree for race start.
+# reed                      # TBD
+# reset                     # Input to GPIO to reset lap counter & time
+# yellow_led                # is the output to drive the yellow LED
+# segment                   # Address of the Adafruit 7 segment Featherwing 4 digit LED display
+# time_1                    # This is a global variable that is the previous time (time at start of lap)
+# time_2                    # This is a global variable that is the current time (time at end of lap)
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# ---------- List of functions -----------------------------------------------------------------------
+# display(time)               --  Displays current lap time to 7 segment display.
+# displayFastestLap(channel)  --  Displays fasted lap to 7 segment display [not used yet]
+# fastest_flash()             --  Flashes the green LED when a fastest lap occurs.
+# lap_detect()                --  Blinks yellow lap indicator LED once when lap is detected.
+# newLap(channel)             --  Determines what to do when a new lap is detected (increment lap counter, compute lap times & fasted lap)
+# reset(channel)              --  Resets the race laps and fastest lap number
+# -----------------------------------------------------------------------------------------------------
 
 # Import libraries
 import RPi.GPIO as GPIO
@@ -44,10 +97,10 @@ GPIO.setwarnings(False) #to disable warnings
 # pins used for the switches, reed sensor and LED
 reset = 16  # GPIO16 pin 36, I think this is connected to a momentary switch to reset the timer
 reed = 20   # GPIO20 pin 38
-fastest_lap = 21    #GPIO21 pin 40.  This is fasted lap request button.
+fastestLapButton = 21    #GPIO21 pin 40.  This is fasted lap request button.
 yellow_led = 19    #GPIO19 pin 35
 green_led = 26  #GPIO26 pin 37
-led_5 = 25  #GPIO25 pin 37, Bar LED #5
+led_5 = 25  #GPIO25 pin 22, Bar LED #5
 led_4 = 8   #GPIO8 pin 24, Bar LED #4
 led_3 = 7   #GPIO7 pin 26, Bar LED #3
 led_2 = 12  #GPIO12 pin 32, Bar LED #2
@@ -67,7 +120,7 @@ GPIO.setup(led_1, GPIO.OUT)      #Bar LED #1 channel 13
 print('Configuring the detection input channels for the GPIO')
 GPIO.setup(reset, GPIO.IN, pull_up_down=GPIO.PUD_UP)   # Reset signal channel GPIO16 pin 36
 GPIO.setup(reed, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Reed switch channel GPIO20 pin 38
-GPIO.setup(fastest_lap, GPIO.IN, pull_up_down=GPIO.PUD_UP)    #fastest_lap channel GPIO21 pin 40
+GPIO.setup(fastestLapButton, GPIO.IN, pull_up_down=GPIO.PUD_UP)    #fastest_lap channel GPIO21 pin 40
 
 # Switch off LEDs
 print('Switching all LEDs off')

@@ -7,13 +7,7 @@ https://github.com/adafruit/Adafruit-LED-Backpack-Library<br />
 https://www.adafruit.com/
 
 # Quick Overview
-<ul>
-<li>Using a reed sensor to detect changes in magnetic field as slot car passes over track</li>
-<li>Uses Adafruit segment display and i2C libraries to display lap times</li>
-<li>In additional, an RGB LED is used to indicate a new lap being recorded, and fastest lap being achieved</li>
-<li>2 buttons have been added to display fastest recorded lap or reset times</li>
-<li>Coded in Python using GPIO pins on Raspberry Pi</li>
-</ul>
+
 
 # Descriptions of files ########################################################
 <b> This is the description of what the Python files in this project do. </b><br>
@@ -33,6 +27,11 @@ Lap_timer_Carl_with_buttons.py
 # Scalextric_timer
 Scalextric_timer.py
 <ul>
+<li> Using a reed sensor to detect changes in magnetic field as slot car passes over track </li>
+<li> Uses Adafruit segment display and i2C libraries to display lap times </li>
+<li> In additional, an RGB LED is used to indicate a new lap being recorded, and fastest lap being achieved </li>
+<li> 2 buttons have been added to display fastest recorded lap or reset times </li>
+<li> Coded in Python using GPIO pins on Raspberry Pi </li>
 <li> Reports on the time lapsed between detections on the reed sensor. </li>
 <li> Also flashes an LED on each lap detection, and green to indicate fastest lap. </li>
 <li> There are 2 Buttons - one to reset timings, one to display fastest lap. </li>

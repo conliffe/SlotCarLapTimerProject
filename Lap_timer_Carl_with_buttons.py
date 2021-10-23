@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # ==============================================================================
 # Filename    : Lap_timer_Carl_with_buttons.py
-# Description : Reports on the time lapsed between detections of a sensor.
+# Description : Reports on the time lapsed between detection of a sensor.
 # For this test code a momentary push button will be the sensor for the lap.
 # Also will flash a yellow LED on each lap detection, and green LED to indicate
 # fastest lap
@@ -12,7 +12,7 @@
 #
 # Author       : Carl Conliffe based on Scalextric Timer code
 # Created      : 24 Jan 2020
-# Modification : 22 Oct 2021, Documentation inprovements in the code.  Added GPIO2
+# Modification : 22 Oct 2021, Documentation improvements in the code.  Added GPIO2
 # assignment table.  Added table for list of variables.  Added List of functions.
 # Changed name of fastest_lap variable that was used for push button since it was
 # used for time a well.  New name is fastestlapButton.
@@ -20,10 +20,10 @@
 # Issues to debug:
 #  1) Lap times over 9.99 sec do not get displayed in 7 segment display.
 #     The display only shows "09:99" for 9.99 sec.  This makes sense as
-#     there is not digit "0" in the display(time) funtion.
-#  2) Need to implement 5 second countdown to start with christmas tree.
-#  3) Implement "race over" functionality baced on numver of laps.
-#  4) When this code get uncomments and fastest lap goes to 7 segment
+#     there is not digit "0" in the display(time) function.
+#  2) Need to implement 5 second countdown to start with Christmas tree.
+#  3) Implement "race over" functionality based on number of laps.
+#  4) When this code get uncommented and fastest lap goes to 7 segment
 #     the green push button to display fastest lap not longer works. See
 #     display_fastest() function.  Lines 154.
 # ==============================================================================

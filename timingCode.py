@@ -1,10 +1,44 @@
-===============================================================================
-# Author: Carl M. Conliffe
-# Date: 2 January 2020
+#!/usr/bin/env python3
+
+# ==============================================================================
+# Filename     : timingCode.py
 # Description: This program simulates a slot car race with one car and user
 # specified laps.  It displays lap information real time and then logs the
 # final race data to a filename.txt file in the same directory as the code
-===============================================================================
+# Author: Carl M. Conliffe
+# Created: 2 January 2020
+# Modification : 23 Oct 2021; Cleaned up the comments inthe code and placed it
+# in standard template format to include tables of variables and function.
+# ==============================================================================
+
+# ++++++++++++++++++++++++ List of variables +++++++++++++++++++++++++++++++++++
+# data_writer            #
+# f                      #
+# raceName               # This is the user defined name of race.
+# numberOfLaps           # Thisis the user specicfied number of laps inthe race.
+# lane1CarUID            # This is the user specified unique name of the car
+# startTime              # This is the start time of the race
+# localStartTime         # This is the local start time of the race
+# previousTime           # This is the time of the previous lap.
+# lapNumber              # This is the lap number.
+# n                      # Index for loops.
+# sleepTime              # Randomly generated number in seconds for simulated lap time.
+# currentTime            # This is the current time of day.
+# lapTime                # This is the current lap time.
+# raceTime               # This it the total elapsed timeof the race.
+# endTime                # This is the time of day at the end of the race.
+# localEndTime           # This is the local time at the end of the race.
+# startTimeInString      # This is the start time of the race as a string.
+# endTimeInString        # This is the end time of the race as a string.
+# raceTimeInString       # This is the race time as a string.
+# fastestLapInString     # This is the fastest lap time of the race as a string.
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# ---------- List of functions -------------------------------------------------
+# openCSVFile()            --  Opens and formats the .csv file the the race data will be written to.
+# writeDatatoCSVFile()     -- Writes data to the .csv file
+# inputRaceData():         -- This allows the user to input the race data.
+# ------------------------------------------------------------------------------
 
 # First things, first. Import the wxPython package.
 #import wx

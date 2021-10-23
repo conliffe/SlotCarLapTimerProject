@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 ===============================================================================
-# Filename    : TestCode1.py
+# Filename    : AdafruitTestCode1.py
 # Description : This is test code to check out how to use the Adafruit
 # code in the lap timer code.
 # Uses adafruit library to display lap times on 7 segment, 4 digit display

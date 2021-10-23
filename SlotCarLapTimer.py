@@ -47,7 +47,7 @@
 # =================================================================================================
 
 # +++++++++++ List of variables +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# channel
+# channel                   #
 # countDown1, 2, 3, 4, 5    # Each represents an LED on the countdown tree
 # currentTime               # Current Time when read with time.time() function
 # driverName1, 2            # Name of the driver inputed by user

@@ -1,7 +1,8 @@
 ==============================================================================
-# Author      : CanaKit Exercise
+# Filename    : ControlingLEDwithButton.py
 # Description : When you push the button the Red LED turns on.
 # This code needs Raspberry Pi hardware and circuit electronics in order to run.
+# Author      : CanaKit Exercise
 # Date        : 2 January 2020
 # ==============================================================================
 

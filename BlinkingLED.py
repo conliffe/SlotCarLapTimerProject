@@ -1,7 +1,8 @@
 # ==============================================================================
-# Author      : CanaKit Exercise
+# Filename    : BlinkingLED.py
 # Description : This code makes an LED blink at 1 second interval
 # This code needs Raspberry Pi hardware and circuit electronics in order to run.
+# Author      : CanaKit Exercise
 # Date        : 2 January 2020
 # ==============================================================================
 

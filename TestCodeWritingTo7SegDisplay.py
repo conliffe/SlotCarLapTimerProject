@@ -1,7 +1,7 @@
 # =============================================================================
-# Filename    : fileneme.py
-# Description : This test code gets input from the user and has it writen to
-# 7 segment Adafruit display.  This code uses a simple circcuit that drives the
+# Filename    : TestCodeWritingTo7SegDisplay.py
+# Description : This test code gets input from the user and has it written to
+# 7 segment Adafruit display.  This code uses a simple circuit that drives the
 # Adafruit 4 digit 7 segment featherwing display.
 # Author      : Carl Conliffe
 # Created     : 18 October 2021

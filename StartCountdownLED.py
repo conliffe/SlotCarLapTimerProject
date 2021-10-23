@@ -1,13 +1,13 @@
 # ======================================================================
 # Filename    : StartCountdownLED.py
 # Description : This code does a race start sequence using LED bar.  It
-# uses a 5 LED segment to count down to start.  All LED's intially Lit
+# uses a 5 LED segment to countdown to start.  All LED's initially lit
 # then every second one turns off until all 5 are off.  You can make all
-# lights turn on green for go.  This simulates a start christmas tree.
+# lights turn on green for go.  This simulates a start Christmas tree.
 # Author      : Carl Conliffe
 # Created     : 16 October 2021
 # Modification: Date
-# Need to test wiht light bar curcuit
+# Need to test with light bar circuit
 =========================================================================
 
 import RPi.GPIO as GPIO

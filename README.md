@@ -48,7 +48,6 @@ https://www.adafruit.com/
 <li> The schematic name that corresponds to this code is "Lap_Timer_Counter.sch" drawn in KiCad. </li>
 </ul>
 <br>
-
 # timingCode.py
 <ul>
 <li> Simulates a slot car race with one car. </li>
@@ -58,7 +57,7 @@ https://www.adafruit.com/
 </ul>
 <br>
 
-<b> This is all of the test code I used to check out functionality that goes into the code above </b?<br>
+<b> This is all of the test code I used to check out functionality that goes into the code above </b><br>
 # AdafruitTestCode1.py
 <ul>
 <li> This is test code to check out how to use the Adafruit code in the lap timer code. </li>
@@ -109,4 +108,3 @@ https://www.adafruit.com/
 <ul>
 <li> This program shows different functions for using time. </li>
 </ul>
-<br>

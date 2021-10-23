@@ -44,7 +44,7 @@ https://www.adafruit.com/
 <ol>
 <li> Reset lap number time and number counter. </li>
 <li> Force a lap to be counted.  This is a debug feature and not used for a real race. </li>
-<li> Display fasted lap on request during the race and
+<li> Display fasted lap on request during the race. </li>
 <li> Lets user trigger start of race.  This is prompted from the screen display. </li>
 (/ol>
 <li> The circuit will flash an LED on each lap detection, and blinking colored LED to  indicate the fastest lap. </li>

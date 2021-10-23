@@ -18,7 +18,6 @@ https://www.adafruit.com/
 <li> Schematic for this circuit is drawn in KiCad LapTimeCounter.sch. </li>
 <li> Uses adafruit library to display lap times on 7 segment, 4 digit display. </li>
 </ul>
-<br>
 
 # Scalextric_timer.py
 <ul>
@@ -32,7 +31,6 @@ https://www.adafruit.com/
 <li> There are 2 Buttons - one to reset timings, one to display fastest lap. </li>
 <li> This is the code that I used to base all my code on. </li>
 </ul>
-<br>
 
 # SlotCarlapTimer.py
 <ul>
@@ -49,7 +47,6 @@ https://www.adafruit.com/
 <li> The circuit will flash an LED on each lap detection, and blinking colored LED to  indicate the fastest lap. </li>
 <li> The schematic name that corresponds to this code is "Lap_Timer_Counter.sch" drawn in KiCad. </li>
 </ul>
-<br>
 
 # timingCode.py
 <ul>
@@ -58,7 +55,6 @@ https://www.adafruit.com/
 <li> It displays lap information real time. </li>
 <li> Logs the final race data to a "filename.txt" file in the same directory as the code. </li>
 </ul>
-<br>
 
 <b> This is all of the test code I used to check out functionality that goes into the code above </b><br>
 
@@ -67,21 +63,18 @@ https://www.adafruit.com/
 <li> This is test code to check out how to use the Adafruit code in the lap timer code. </li>
 <li> Uses adafruit library to display lap times on 7 segment, 4 digit display. </li>
 </ul>
-<br>
 
 # BlinkingLED.py
 <ul>
 <li> This code makes an LED blink at 1 second interval </li>
 <li> This code needs Raspberry Pi hardware and circuit electronics in order to run. </li>
 </ul>
-<br>
 
 # ControlingLEDwithButton.py
 <ul>
 <li> When you push the button the Red LED turns on. </li>
 <li> This code needs Raspberry Pi hardware and circuit electronics in order to run. </li>
 </ul>
-<br>
 
 # StartCountdownLED.py
 <ul>
@@ -91,7 +84,6 @@ https://www.adafruit.com/
 <li> You can make all lights turn on green for go. </li>
 <li> This simulates a start Christmas tree. </li>
 </ul>
-<br>
 
 # Stoplight.py
 <ul>
@@ -99,21 +91,18 @@ https://www.adafruit.com/
 <li> It stays green for 20 sec. then goes yellow for 2 sec. then stays red for 20 sec. </li>
 <li> This code needs Raspberry Pi hardware and circuit electronics in order to run. </li>
 </ul>
-<br>
 
 # StopWatch.py
 <ul>
 <li> Controls 4_Digit_7_Segment_Display with 74HC595. </li>
 <li> This code needs Raspberry Pi hardware in order to run. </li>
 </ul>
-<br>
 
 # TestCodeWritingTo7SegDisplay.py
 <ul>
 <li> This test code gets input from the user and has it written to 7 segment Adafruit display. </li>
 <li> Uses a simple circuit that drives the Adafruit 4 digit 7 segment featherwing display. </li>
 </ul>
-<br>
 
 # Time_Examples.py
 <ul>

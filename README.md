@@ -19,6 +19,7 @@ https://www.adafruit.com/
 <li> Uses adafruit library to display lap times on 7 segment, 4 digit display. </li>
 </ul>
 <br>
+
 # Scalextric_timer.py
 <ul>
 <li> Using a reed sensor to detect changes in magnetic field as slot car passes over track </li>
@@ -32,6 +33,7 @@ https://www.adafruit.com/
 <li> This is the code that I used to base all my code on. </li>
 </ul>
 <br>
+
 # SlotCarlapTimer.py
 <ul>
 <li> This code is for a Raspberry Pi circuit that will detect slot car laps and time them. </li>
@@ -48,6 +50,7 @@ https://www.adafruit.com/
 <li> The schematic name that corresponds to this code is "Lap_Timer_Counter.sch" drawn in KiCad. </li>
 </ul>
 <br>
+
 # timingCode.py
 <ul>
 <li> Simulates a slot car race with one car. </li>
@@ -58,24 +61,28 @@ https://www.adafruit.com/
 <br>
 
 <b> This is all of the test code I used to check out functionality that goes into the code above </b><br>
+
 # AdafruitTestCode1.py
 <ul>
 <li> This is test code to check out how to use the Adafruit code in the lap timer code. </li>
 <li> Uses adafruit library to display lap times on 7 segment, 4 digit display. </li>
 </ul>
 <br>
+
 # BlinkingLED.py
 <ul>
 <li> This code makes an LED blink at 1 second interval </li>
 <li> This code needs Raspberry Pi hardware and circuit electronics in order to run. </li>
 </ul>
 <br>
+
 # ControlingLEDwithButton.py
 <ul>
 <li> When you push the button the Red LED turns on. </li>
 <li> This code needs Raspberry Pi hardware and circuit electronics in order to run. </li>
 </ul>
 <br>
+
 # StartCountdownLED.py
 <ul>
 <li> This code does a race start sequence using LED bar. </li>
@@ -85,6 +92,7 @@ https://www.adafruit.com/
 <li> This simulates a start Christmas tree. </li>
 </ul>
 <br>
+
 # Stoplight.py
 <ul>
 <li> This program simulates a traffic signal. </li>
@@ -92,18 +100,21 @@ https://www.adafruit.com/
 <li> This code needs Raspberry Pi hardware and circuit electronics in order to run. </li>
 </ul>
 <br>
+
 # StopWatch.py
 <ul>
 <li> Controls 4_Digit_7_Segment_Display with 74HC595. </li>
 <li> This code needs Raspberry Pi hardware in order to run. </li>
 </ul>
 <br>
+
 # TestCodeWritingTo7SegDisplay.py
 <ul>
 <li> This test code gets input from the user and has it written to 7 segment Adafruit display. </li>
 <li> Uses a simple circuit that drives the Adafruit 4 digit 7 segment featherwing display. </li>
 </ul>
 <br>
+
 # Time_Examples.py
 <ul>
 <li> This program shows different functions for using time. </li>

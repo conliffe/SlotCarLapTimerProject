@@ -1,36 +1,30 @@
-This is data for: Race1
-Start Time = 16 October 2021 at 08:45:49 Pacific Daylight Time 
-End Time = 16 October 2021 at 08:46:00 Pacific Daylight Time 
-Race Time = 11.06062936782837 seconds
-Fastest Lap = 1.0033655166625977 seconds
+This is data for: 24 Hours of Lemons
+Start Time = 23 October 2021 at 19:06:41 PDT 
+End Time = 23 October 2021 at 19:06:58 PDT 
+Race Time = 17.033320426940918 seconds
+Fastest Lap = 2.0057342052459717 seconds
 
-This is data for Race #Race2 using timingCode.py
-Start Time = 1634399567.248278
-End Time = 1634399588.3290946
-Race Time = 21.080816745758057
-Best Lap = 1.0036342144012451
+This is data for: Lemans
+Start Time = Sat, 23 Oct 2021 19:31:42 PDT
+End Time = Sat, 23 Oct 2021 19:32:00 PDT
+Race Time = 17.602582216262817 seconds
+Fastest Lap = 2.0466508865356445 seconds
 
-This is data for: Race3 using timingCode_Ver2.py
-Start Time = 16 October 2021 at 08:58:48 Pacific Daylight Time 
-End Time = 16 October 2021 at 08:59:25 Pacific Daylight Time 
-Race Time = 37.093926668167114 seconds
-Fastest Lap = 1.0045757293701172 seconds
+This is data for: Daytona 2
+Start Time = Sat, 23 Oct 2021 19:39:31 PDT
+End Time = Sat, 23 Oct 2021 19:39:41 PDT
+Race Time = 9.632576942443848 seconds
+Fastest Lap = 2.5441811084747314 seconds
 
-This is data for: Race #1
-Start Time = 19 October 2021 at 23:05:36 Pacific Daylight Time 
-End Time = 19 October 2021 at 23:05:56 Pacific Daylight Time 
-Race Time = 20.06409978866577 seconds
-Fastest Lap = 1.002589225769043 seconds
+This is data for: Daytona 3
+Start Time = Sat, 23 Oct 2021 19:41:35 PDT
+End Time = Sat, 23 Oct 2021 19:41:48 PDT
+Race Time = 13.135804891586304 seconds
+Fastest Lap = 2.4766294956207275 seconds
 
-This is data for: Race 2
-Start Time = 19 October 2021 at 23:07:46 Pacific Daylight Time 
-End Time = 19 October 2021 at 23:08:00 Pacific Daylight Time 
-Race Time = 14.028825044631958 seconds
-Fastest Lap = 1.0051844120025635 seconds
-
-This is data for: Daytona 500
-Start Time = 23 October 2021 at 11:12:02 Pacific Daylight Time 
-End Time = 23 October 2021 at 11:12:27 Pacific Daylight Time 
-Race Time = 24.136722087860107 seconds
-Fastest Lap = 1.0049428939819336 seconds
+This is data for: Daytona 10
+Start Time = Sat, 23 Oct 2021 19:43:26 PDT
+End Time = Sat, 23 Oct 2021 19:44:01 PDT
+Race Time = 35.30028796195984 seconds
+Fastest Lap = 2.320436716079712 seconds
 

@@ -122,10 +122,10 @@ print('Fastest Lap Time = ', "%.2f" % fastestLap, " seconds")   # Prints the lap
 print('Writing race data to a text file named "RaceData.txt"')
 
 # Write data to .txt file
-startTimeInString = str(formattedStartTime)          # float -> str
-endTimeInString = str(formattedEndTime)              # float -> str
+startTimeInString = str(formattedStartTime) # float -> str
+endTimeInString = str(formattedEndTime)     # float -> str
 raceTimeInString = str(raceTime)            # float -> str
-fastestLapInString = str(fastestLap)              # float -> str
+fastestLapInString = str(fastestLap)        # float -> str
 f = open('raceData.txt', 'a')               # Write and append to the file
 f.write('This is data for: ' + raceName + '\n')
 f.write('Start Time = ' + startTimeInString + '\n')

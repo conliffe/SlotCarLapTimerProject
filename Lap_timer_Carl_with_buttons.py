@@ -12,10 +12,9 @@
 #
 # Author       : Carl Conliffe based on Scalextric Timer code
 # Created      : 24 Jan 2020
-# Modification : 23 Oct 2021, Updated code so that the GPIO is the same as
-# SlotCarTimer.py.  Moved wiring on cuircuit as well.  Changed name of "reed"
-# to "lapSensorTest" and relocate its GPIO.  Tested these changes and they work.
-# 
+# Modification : 25 Oct 2021, Corrected "display_fastest(channel)" name in
+# function table.  Don't really need to update this anymore since "SlotCarlapTimer.py"
+# is working.
 #
 # Issues to debug:
 #  1) Lap times over 9.99 sec do not get displayed in 7 segment display.
@@ -23,7 +22,7 @@
 #     there is no digit "0" in the display(time) function.
 #  2) Need to implement 5 second countdown to start with Christmas tree.
 #  3) Implement "race over" functionality based on number of laps.
-#  4) Nee to implement logging race data.
+#  4) Need to implement logging race data.
 # ==============================================================================
 
 # ================================ GPIO ASSIGNMENTS ===============================================
@@ -69,7 +68,7 @@
 
 # ---------- List of functions -----------------------------------------------------------------------
 # display(time)               --  Displays current lap time to 7 segment display.
-# displayFastestLap(channel)  --  Displays fasted lap to 7 segment display [not used yet]
+# display_fastest(channel)    --  Displays fasted lap to 7 segment display [not used yet]
 # fastest_flash()             --  Flashes the green LED when a fastest lap occurs.
 # lap_detect()                --  Blinks yellow lap indicator LED once when lap is detected.
 # newLap(channel)             --  Determines what to do when a new lap is detected (increment lap counter, compute lap times & fasted lap)

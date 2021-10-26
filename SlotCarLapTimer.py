@@ -18,19 +18,19 @@
 # yet
 #
 # Author       : Carl Conliffe based on Scalextric Timer code
-# Modification : 23 Oct 2021; Updated code so thaat I/O matches with Lap_timer_Carl_with_buttons.py
+# Modification : 24 Oct 2021; Corrected some typos.  Added for loop for flashing yellow LED
 #
 # Issues to debug:
-#   1) Need to test the logging data to a file.
-#   2) Reset buttong does not reset lap number.  I think this is becasue lapNumber is not a global
-#      variable and only gets reset to 0 withing the reset(channel) function.  I am not sure if I
-#      want it to. What should reset really do that makes sense.
+#   1)
+#   2) Reset button does not reset lap number.  I think this is becasue lapNumber is not a global
+#      variable and only gets reset to 0 within the reset(channel) function.  I am not sure if I
+#      want it to. What should reset really do that makes sense?
 #   3) Code crashes after a reset is used it the next lap is too long.  The same happens after a
 #      blue (fastest lap) button is pressed as well.  Not sure if this is the real reason this
 #      happens.  Need to test without 7 segment as well.  This is not an issue when 7 segment
 #      commands are commented out in the display(lapTime) funtion.  This is the error:
 #         segment.writeDigit(3, int(str(time)[2]))
-#         ValueError: invalid literal for int() with base 10: '.'  
+#         ValueError: invalid literal for int() with base 10: '.'
 # =================================================================================================
 
 # ================================ GPIO ASSIGNMENTS ===============================================
@@ -82,9 +82,9 @@
 # raceStartTime             # Time in epoch at race start
 # raceStartTimeFormatted    # Human readable time at race start
 # raceTimeDuration          # Global variable Length of race in seconds
-# yellowLed                    # LED output for lap completion indicator.  GPIO driven (colored for lane)
 # reset                     # Input to GPIO to reset lap counter & time
 # startRace                 # Input to GPIO to start race when prompted
+# yellowLed                 # LED output for lap completion indicator.  GPIO driven (colored for lane)
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # ---------- List of functions -----------------------------------------------------------------------
@@ -232,9 +232,12 @@ def startSequence():
 
 # Function to flash yellow LED once lap is detected
 def lapDetect():
-    GPIO.output(yellowLed, True)    # Turns yellow LED on
-    time.sleep(0.1)
-    GPIO.output(yellowLed, False)    # Turns red LED off
+    for i in range(0,5):
+      GPIO.output(yellowLed, True)    # Turns yellow LED on
+      time.sleep(0.1)
+      GPIO.output(yellowLed, False)   # Turns yellow LED off
+      time.sleep(0.1)
+    print('You just completed a lap!')
 
 # Function to repeatedly flash green LED when a fastest lap occurs
 def fastestLapLEDflash():

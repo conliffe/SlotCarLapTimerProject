@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-===============================================================================
+# ===============================================================================
 # Filename    : AdafruitTestCode1.py
 # Description : This is test code to check out how to use the Adafruit
 # code in the lap timer code.
@@ -8,7 +8,7 @@
 # Author      : Carl Conliffe
 # Created     : 18 October 2021
 # Modification:
-===============================================================================
+# ===============================================================================
 
 # Import libraries
 #import time

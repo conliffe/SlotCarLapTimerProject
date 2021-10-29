@@ -18,19 +18,20 @@
 # yet
 #
 # Author       : Carl Conliffe based on Scalextric Timer code
-# Modification : 24 Oct 2021; Corrected some typos.  Added for loop for flashing yellow LED
+# Modification : 28 Oct 2021; Connected IR Sensor Circuits to test code. Added code to distinguish
+# between cars and drivers 1for lane 1 & 2.
 #
 # Issues to debug:
-#   1)
-#   2) Reset button does not reset lap number.  I think this is becasue lapNumber is not a global
+#   1) Reset button does not reset lap number.  I think this is becasue lapNumber is not a global
 #      variable and only gets reset to 0 within the reset(channel) function.  I am not sure if I
 #      want it to. What should reset really do that makes sense?
-#   3) Code crashes after a reset is used it the next lap is too long.  The same happens after a
+#   2) Code crashes after a reset is used it the next lap is too long.  The same happens after a
 #      blue (fastest lap) button is pressed as well.  Not sure if this is the real reason this
 #      happens.  Need to test without 7 segment as well.  This is not an issue when 7 segment
 #      commands are commented out in the display(lapTime) funtion.  This is the error:
 #         segment.writeDigit(3, int(str(time)[2]))
 #         ValueError: invalid literal for int() with base 10: '.'
+#   3) Update RaceDuration to display Minutes, Seconds in .cvs file. 
 # =================================================================================================
 
 # ================================ GPIO ASSIGNMENTS ===============================================
@@ -68,7 +69,7 @@
 # getFastestLap             # Push blue push button input to display fastest lap.
 # greenled                  # Output to blink for fastest lap.
 # i                         # Index for loops.
-# lane1CarUID               # Unique identification number for car.
+# lane1CarUID1, 2           # Unique identification number for car.
 # lapNumber                 # This is the current lap number the racer is on.
 # lapSensor1, 2             # IR LED receiver input for detecting car on lane #1 & #2 has completed lap
 # lapSensorTest             # Push button input to force lap as a test only
@@ -139,7 +140,7 @@ countDown1 = 13     # GPIO13 pin 33, countdown LEDs on bar LED
 # Configures GPIO outputs
 # DEBUG print('The LEDs are being configured.  Red for lap detection and green for fasted lap.')
 GPIO.setwarnings(False)           # Turns off GPIO warnings
-GPIO.setup(yellowLed, GPIO.OUT)      # yellow LED channel 22
+GPIO.setup(yellowLed, GPIO.OUT)   # Yellow LED channel 22
 GPIO.setup(greenLed, GPIO.OUT)    # Green LED channel 26
 GPIO.setup(countDown5, GPIO.OUT)  # LED bar LED5 channel 25
 GPIO.setup(countDown4, GPIO.OUT)  # LED bar LED4 channel 23
@@ -264,8 +265,8 @@ def openCSVFile():
         data_writer = csv.writer(race_data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         data_writer.writerow(['This is data for: ', raceName])
         data_writer.writerow(['This race will consist of (laps):', numberOfLaps])
-        data_writer.writerow(['On lane #1 is car UID#:', lane1CarUID])
-        #data_writer.writerow(['On lane #2 is car UID#:', lane2CarUID])
+        data_writer.writerow(['On lane #1 is car UID#:', laneCarUID1])
+        #data_writer.writerow(['On lane #2 is car UID#:', laneCarUID2])
         data_writer.writerow(['Lap #', 'Lap Time (sec)', 'Fastest Lap(sec)'])  # Column headings
 
 # Function to write data to .csv file for one line at a time
@@ -300,7 +301,7 @@ def newLap(channel):
         writeDatatoCSVFile()
         #if lapTime < 10:   # NOT SURE WHY IT ONLY CALLS & SEGMENT WHEN LAP TIME IS LESS THAN 10 SEC
         display(lapTime)    # Calls function that displays lap time on 7 Segment display
-        if numberOfLaps == lapNumber:  # Checks if race shold be over
+        if numberOfLaps == lapNumber:  # Checks if race should be over
             endingRoutine()
         else:
             lapNumber += 1   # Increments the lap counter
@@ -330,12 +331,16 @@ def displayFastestLap(channel):
 def inputRaceData():
     global numberOfLaps
     global raceName
-    global lane1CarUID
-    global driverName
+    global laneCarUID1
+#    global laneCarUID2
+    global driverName1
+#    global driverName2
     raceName = input("Enter Race Name: ")    # Enter the race information
     numberOfLaps = int(input("Enter The Number of Laps: "))  # Typecasting
-    lane1CarUID = input("Enter UID for car on lane #1: ")    # Enter the race information
-    driverName = input("Enter the name of the driver on lane #1: ")    # Enter the race information
+    laneCarUID1 = input("Enter UID for car on lane #1: ")    # Enter the race information
+#    laneCarUID2 = input("Enter UID for car on lane #2: ")    # Enter the race information
+    driverName1 = input("Enter the name of the driver on lane #1: ")    # Enter the race information
+#    driverName2 = input("Enter the name of the driver on lane #2: ")    # Enter the race information
     print(raceName, 'will be a ', numberOfLaps, ' lap race.')
 
 # This is the Function that cleans house then ends the program
@@ -380,8 +385,8 @@ startSequence()   # Calls the start sequence
 GPIO.add_event_detect(16, GPIO.FALLING, callback=reset, bouncetime=200)  # This is reset  # Interrupt
 GPIO.add_event_detect(6, GPIO.FALLING, callback=newLap, bouncetime=2000) # The is new lap test button  # Interrupt
 GPIO.add_event_detect(17, GPIO.FALLING, callback=displayFastestLap, bouncetime=200) # This is display fasted lap  # Interrupt
-GPIO.add_event_detect(4, GPIO.FALLING, callback=newLap, bouncetime=200)  # This is new lap Break Beam Detection  # Interrupt
-GPIO.add_event_detect(5, GPIO.FALLING, callback=newLap, bouncetime=200)  # This is new lap Reflective Detection  # Interrupt
+GPIO.add_event_detect(4, GPIO.FALLING, callback=newLap, bouncetime=200)  # This is new lap for LapSensor1 Relective Detection  # Interrupt
+GPIO.add_event_detect(5, GPIO.FALLING, callback=newLap, bouncetime=200)  # This is new lap for LapSenso12 Break Beam Detection  # Interrupt
 
 
 try:

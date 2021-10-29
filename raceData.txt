@@ -28,3 +28,15 @@ End Time = Sat, 23 Oct 2021 19:44:01 PDT
 Race Time = 35.30028796195984 seconds
 Fastest Lap = 2.320436716079712 seconds
 
+This is data for: Monza
+Start Time = Thu, 28 Oct 2021 19:02:44 PDT
+End Time = Thu, 28 Oct 2021 19:04:49 PDT
+Race Time = 125.19909644126892 seconds
+Fastest Lap = 2.596590042114258 seconds
+
+This is data for: Silverstone
+Start Time = Thu, 28 Oct 2021 22:11:24 PDT
+End Time = Thu, 28 Oct 2021 22:12:15 PDT
+Race Time = 50.1259708404541 seconds
+Fastest Lap = 2.454118490219116 seconds
+

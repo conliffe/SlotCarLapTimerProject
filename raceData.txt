@@ -40,3 +40,27 @@ End Time = Thu, 28 Oct 2021 22:12:15 PDT
 Race Time = 50.1259708404541 seconds
 Fastest Lap = 2.454118490219116 seconds
 
+This is data for: Imala
+Start Time = Tue, 02 Nov 2021 22:34:47 PDT
+End Time = Tue, 02 Nov 2021 22:35:09 PDT
+Race Time = 22.36207628250122 seconds
+Fastest Lap = 1.0029776096343994 seconds
+
+This is data for: Spa
+Start Time = Tue, 02 Nov 2021 22:45:02 PDT
+End Time = Tue, 02 Nov 2021 22:46:21 PDT
+Race Time = 79.05795335769653 seconds
+Fastest Lap = 1.003206729888916 seconds
+
+This is data for: Silverstone
+Start Time = Tue, 02 Nov 2021 22:49:39 PDT
+End Time = Tue, 02 Nov 2021 22:51:13 PDT
+Race Time = 94.56926798820496 seconds
+Fastest Lap = 2.0109076499938965 seconds
+
+This is data for: Circuit of the Americas
+Start Time = Tue, 02 Nov 2021 22:53:53 PDT
+End Time = Tue, 02 Nov 2021 22:54:51 PDT
+Race Time = 58.32084512710571 seconds
+Fastest Lap = 8.991974353790283 seconds
+

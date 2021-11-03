@@ -130,3 +130,71 @@ The race duration was (sec): ,50.1259708404541
 The fastest race lap was (sec): ,2.454118490219116
 The race winner is: 
  
+This is data for: ,Imala
+This race will consist of (laps):,5
+On lane #1 is car UID#:,Peugeot #3
+Lap #,Lap Time (sec),Fastest Lap(sec)
+1,1.0029776096343994,1.0029776096343994
+2,2.0105032920837402,1.0029776096343994
+3,8.524186372756958,1.0029776096343994
+4,1.0068318843841553,1.0029776096343994
+5,5.493343114852905,1.0029776096343994
+The race started at: ,"Tue, 02 Nov 2021 22:34:47 PDT"
+The race ended at: ,"Tue, 02 Nov 2021 22:35:09 PDT"
+Laps completed by winner: ,5
+The race duration was (sec): ,22.36207628250122
+The fastest race lap was (sec): ,1.0029776096343994
+The race winner is: 
+ 
+This is data for: ,Spa
+This race will consist of (laps):,8
+On lane #1 is car UID#:,Peugeot #3
+Lap #,Lap Time (sec),Fastest Lap(sec)
+1,1.003206729888916,1.003206729888916
+2,25.337011098861694,1.003206729888916
+3,1.00767183303833,1.003206729888916
+4,18.384247541427612,1.003206729888916
+5,1.0119824409484863,1.003206729888916
+6,16.649730443954468,1.003206729888916
+7,11.52434229850769,1.003206729888916
+8,1.0096426010131836,1.003206729888916
+The race started at: ,"Tue, 02 Nov 2021 22:45:02 PDT"
+The race ended at: ,"Tue, 02 Nov 2021 22:46:21 PDT"
+Laps completed by winner: ,8
+The race duration was (sec): ,79.05795335769653
+The fastest race lap was (sec): ,1.003206729888916
+The race winner is: 
+ 
+This is data for: ,Silverstone
+This race will consist of (laps):,7
+On lane #1 is car UID#:,Peugeot #3
+Lap #,Lap Time (sec),Fastest Lap(sec)
+1,16.16348648071289,16.16348648071289
+2,12.624351024627686,12.624351024627686
+3,2.0109076499938965,2.0109076499938965
+4,19.73755383491516,2.0109076499938965
+5,11.808516502380371,2.0109076499938965
+6,17.708357572555542,2.0109076499938965
+7,6.850332260131836,2.0109076499938965
+The race started at: ,"Tue, 02 Nov 2021 22:49:39 PDT"
+The race ended at: ,"Tue, 02 Nov 2021 22:51:13 PDT"
+Laps completed by winner: ,7
+The race duration was (sec): ,94.56926798820496
+The fastest race lap was (sec): ,2.0109076499938965
+The race winner is: 
+ 
+This is data for: ,Circuit of the Americas
+This race will consist of (laps):,4
+On lane #1 is car UID#:,Peugeot #3
+Lap #,Lap Time (sec),Fastest Lap(sec)
+1,18.27951955795288,18.27951955795288
+2,11.560845851898193,11.560845851898193
+3,14.887931823730469,11.560845851898193
+4,8.991974353790283,8.991974353790283
+The race started at: ,"Tue, 02 Nov 2021 22:53:53 PDT"
+The race ended at: ,"Tue, 02 Nov 2021 22:54:51 PDT"
+Laps completed by winner: ,4
+The race duration was (sec): ,58.32084512710571
+The fastest race lap was (sec): ,8.991974353790283
+The race winner is: 
+ 

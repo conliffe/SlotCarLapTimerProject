@@ -386,7 +386,7 @@ GPIO.add_event_detect(16, GPIO.FALLING, callback=reset, bouncetime=200)  # This 
 GPIO.add_event_detect(6, GPIO.FALLING, callback=newLap, bouncetime=2000) # The is new lap test button  # Interrupt
 GPIO.add_event_detect(17, GPIO.FALLING, callback=displayFastestLap, bouncetime=200) # This is display fasted lap  # Interrupt
 GPIO.add_event_detect(4, GPIO.FALLING, callback=newLap, bouncetime=200)  # This is new lap for LapSensor1 Relective Detection  # Interrupt
-GPIO.add_event_detect(5, GPIO.FALLING, callback=newLap, bouncetime=200)  # This is new lap for LapSenso12 Break Beam Detection  # Interrupt
+GPIO.add_event_detect(5, GPIO.FALLING, callback=newLap, bouncetime=2000)  # This is new lap for LapSenso12 Break Beam Detection  # Interrupt
 
 
 try:
